@@ -5,4 +5,6 @@ class Earmo(Analyzer):
         super().__init__(path)
 
     def analyze(self):
+        """
         print("Earmo analyzing...")
+        """
