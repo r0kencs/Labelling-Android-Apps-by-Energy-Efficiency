@@ -1,4 +1,4 @@
-from Analyzer import Analyzer
+from Analyzers.Analyzer import Analyzer
 
 class Earmo(Analyzer):
     def __init__(self, path):

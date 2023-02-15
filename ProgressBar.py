@@ -41,6 +41,7 @@ class ProgressBar:
             sys.stdout.write(" ")
 
         sys.stdout.write("│ {0}% {1}".format(percentage, message)) # this ends the progress bar
+        sys.stdout.write("\033[K")
         sys.stdout.flush()
 
         self.percentage = percentage
