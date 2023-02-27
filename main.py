@@ -24,12 +24,12 @@ minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
 
 progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
 dex2jar = Dex2jar(minifiedApkPath)
-dex2jar.decompile()
+#dex2jar.decompile()
 progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
 
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
-jadx = Jadx(minifiedApkPath)
-jadx.decompile()
+jadx = Jadx(apkPath)
+#jadx.decompile()
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
 
 dex2jarOutputPath = "output/" + apkName + "/dex2jar/" + apkName + "-dex2jar.jar"
