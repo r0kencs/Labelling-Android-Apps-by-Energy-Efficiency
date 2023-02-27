@@ -29,6 +29,7 @@ class Earmo(Analyzer):
         os.chdir("tools/earmo")
         #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"])
         self.extractResults()
+        os.chdir("../..")
 
     def extractResults(self):
         patterns = []
@@ -41,7 +42,6 @@ class Earmo(Analyzer):
                     if auxLineData.startswith("_type="):
                         patternType = auxLineData.split("=")[1]
                         pattern = self.antiPatternTypes.get(patternType)()
-                        print(pattern)
                         patterns.append(pattern)
 
         self.patterns = patterns

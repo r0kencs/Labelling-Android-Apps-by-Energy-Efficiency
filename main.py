@@ -9,6 +9,7 @@ from Decompilers.Dex2jar import Dex2jar
 from Decompilers.Jadx import Jadx
 
 from Analyzers.Earmo import Earmo
+from Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 
 progressBar = ProgressBar()
 
@@ -33,8 +34,14 @@ jadx = Jadx(apkPath)
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
 
 dex2jarOutputPath = "output/" + apkName + "/dex2jar/" + apkName + "-dex2jar.jar"
+jadxOutputPath = "output/" + apkName + "/jadx/"
 
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 earmo = Earmo(apkName, dex2jarOutputPath)
 earmo.analyze()
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
+
+progressBar.smoothUpdate(40, "AndroidManifestAnalyzer Analyzing!")
+androidManifestAnalyzer = AndroidManifestAnalyzer(apkName, jadxOutputPath)
+androidManifestAnalyzer.analyze()
+progressBar.smoothUpdate(50, "AndroidManifestAnalyzer Analyzing!")
