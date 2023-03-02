@@ -1,0 +1,14 @@
+{
+	"sources": [
+		"apks\\stopthefire.apk"
+	],
+	"total": 1,
+	"detectors": {
+		"Excessive Method Calls Detector": [],
+		"HashMap Usage Detector": [
+			"FaqActivity.java/FaqActivity/initData:27"
+		],
+		"Internal Getter Detector": [],
+		"Member Ignoring Method Detector": []
+	}
+}
