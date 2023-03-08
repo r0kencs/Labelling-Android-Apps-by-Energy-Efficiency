@@ -13,6 +13,7 @@ from Analyzers.Kadabra import Kadabra
 from Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 
 print("")
+t1 = time.time()
 
 progressBar = ProgressBar()
 
@@ -60,4 +61,5 @@ androidManifestAnalyzer.analyze()
 progressBar.finishMessage("[✓] AndroidManifestAnalyzer")
 progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
 
-print("\n")
+t2 = time.time() - t1
+print(f"\n\nElapsed time: {t2:.2f} s\n")
