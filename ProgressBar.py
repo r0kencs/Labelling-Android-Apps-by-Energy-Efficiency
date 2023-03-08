@@ -10,6 +10,16 @@ class ProgressBar:
         self.message = ""
         self.update(0, "")
 
+    def finishMessage(self, message):
+        lineSize = toolbar_width + len("||") + len(" {0}% {1}".format(self.percentage, self.message))
+        sys.stdout.write("\b" * lineSize) # return to start of line, after '['
+
+        clearSpace = lineSize - len(message)
+
+        print(f'{message}{" "*clearSpace}')
+
+        self.update(self.percentage, self.message)
+
     def smoothUpdate(self, percentage, message):
         startingPercentage = self.percentage
         self.update(self.percentage, message)
