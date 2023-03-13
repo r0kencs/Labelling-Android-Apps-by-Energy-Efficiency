@@ -13,7 +13,7 @@ class AndroidManifestAnalyzer(Analyzer):
         services = []
         providers = []
 
-        with open(self.path + "app/src/main/AndroidManifest.xml") as file:
+        with open(self.path + "resources/AndroidManifest.xml") as file:
             document = parse(file)
 
             nodes = document.getElementsByTagName('uses-permission')
@@ -31,3 +31,11 @@ class AndroidManifestAnalyzer(Analyzer):
             nodes = document.getElementsByTagName('provider')
             for node in nodes:
                 providers.append(node.getAttribute("android:name"))
+
+        self.permissions = permissions
+        self.activities = activities
+        self.services = services
+        self.providers = providers
+
+    def toReport(self):
+        return f"Permissions: {len(self.permissions)}\nActivities: {len(self.activities)}\nServices: {len(self.services)}\nProviders: {len(self.providers)}\n"

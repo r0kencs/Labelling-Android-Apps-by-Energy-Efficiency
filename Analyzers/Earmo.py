@@ -5,6 +5,8 @@ from EnergyAntiPatterns.InlineGetterAndSetters import InlineGetterAndSetters
 from EnergyAntiPatterns.HashMapUsage import HashMapUsage
 from EnergyAntiPatterns.InlineClass import InlineClass
 
+from EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
+
 import subprocess
 import os
 import shutil
@@ -24,12 +26,17 @@ class Earmo(Analyzer):
             "InlineClass": InlineClass
         }
 
+        self.patterns = []
+
     def analyze(self):
         self.prepare()
         os.chdir("tools/earmo")
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"])
         self.extractResults()
         os.chdir("../..")
+
+    def toReport(self):
+        return f"EARMO: {len(self.patterns)}\n"
 
     def extractResults(self):
         patterns = []
@@ -41,7 +48,7 @@ class Earmo(Analyzer):
                 for auxLineData in lineData:
                     if auxLineData.startswith("_type="):
                         patternType = auxLineData.split("=")[1]
-                        pattern = self.antiPatternTypes.get(patternType)()
+                        pattern = self.antiPatternTypes.get(patternType, UnknownAntiPattern)()
                         patterns.append(pattern)
 
         self.patterns = patterns

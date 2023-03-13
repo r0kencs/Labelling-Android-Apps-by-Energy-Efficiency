@@ -6,6 +6,8 @@ from EnergyAntiPatterns.HashMapUsage import HashMapUsage
 from EnergyAntiPatterns.InternalGetter import InternalGetter
 from EnergyAntiPatterns.MemberIgnoringMethod import MemberIgnoringMethod
 
+from EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
+
 import subprocess
 import os
 import shutil
@@ -27,9 +29,14 @@ class Kadabra(Analyzer):
             "MemberIgnoringMethod": MemberIgnoringMethod
         }
 
+        self.patterns = []
+
     def analyze(self):
         result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/kadabra/kadabra.jar", "tools/kadabra/main.js", "-p", self.path, "-WC", "-APF", "package!", "-o", self.outputPath, "-s", "-X", "-C"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.extractResults()
+
+    def toReport(self):
+        return f"Kadabra: {len(self.patterns)}\n"
 
     def extractResults(self):
         shutil.copy2("tools/kadabra/results.json", self.outputPath)
@@ -44,7 +51,7 @@ class Kadabra(Analyzer):
                 patternList = data['detectors'][detector]
 
                 for _ in patternList:
-                    pattern = self.antiPatternTypes.get(patternType)()
+                    pattern = self.antiPatternTypes.get(patternType, UnknownAntiPattern)()
                     patterns.append(pattern)
 
         self.patterns = patterns

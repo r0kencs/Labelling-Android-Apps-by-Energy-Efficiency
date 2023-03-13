@@ -17,7 +17,7 @@ t1 = time.time()
 
 progressBar = ProgressBar()
 
-apkPath = "apks/stopthefire.apk"
+apkPath = "apks/org.woheller69.omweather_13.apk"
 apkName = os.path.splitext(os.path.basename(apkPath))[0]
 
 progressBar.smoothUpdate(0, "ApkMinify Minifying APK!")
@@ -52,7 +52,7 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
 earmo = Earmo(apkName, dex2jarOutputPath)
-#earmo.analyze()
+earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"[⨯] EARMO - {task_t2:.2f} s")
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
@@ -60,7 +60,7 @@ progressBar.smoothUpdate(40, "EARMO Analyzing!")
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
 kadabra = Kadabra(apkName, apkPath)
-#kadabra.analyze()
+kadabra.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"[⨯] Kadabra - {task_t2:.2f} s")
 progressBar.smoothUpdate(50, "Kadabra Analyzing!")
@@ -75,3 +75,10 @@ progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
 
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
+
+report = open("output/" + apkName + "/report.txt", "w")
+report.write(androidManifestAnalyzer.toReport())
+report.write(earmo.toReport())
+report.write(kadabra.toReport())
+report.write(f"Analysis time: {t2:.2f} s\n")
+report.close()

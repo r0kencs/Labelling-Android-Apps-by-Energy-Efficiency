@@ -1,0 +1,12 @@
+{
+	"sources": [
+		"apks\\org.woheller69.omweather_13.apk"
+	],
+	"total": 0,
+	"detectors": {
+		"Excessive Method Calls Detector": [],
+		"HashMap Usage Detector": [],
+		"Internal Getter Detector": [],
+		"Member Ignoring Method Detector": []
+	}
+}
