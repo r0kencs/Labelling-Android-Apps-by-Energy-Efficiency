@@ -12,6 +12,8 @@ from src.Analyzers.Earmo import Earmo
 from src.Analyzers.Kadabra import Kadabra
 from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 
+from src.Stats import Stats
+
 print("")
 t1 = time.time()
 
@@ -41,7 +43,7 @@ progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
 jadx = Jadx(apkPath)
-jadx.decompile()
+#jadx.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"[✓] Jadx - {task_t2:.2f} s")
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
@@ -52,7 +54,7 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
 earmo = Earmo(apkName, dex2jarOutputPath)
-earmo.analyze()
+#earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"[⨯] EARMO - {task_t2:.2f} s")
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
@@ -60,7 +62,7 @@ progressBar.smoothUpdate(40, "EARMO Analyzing!")
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
 kadabra = Kadabra(apkName, apkPath)
-kadabra.analyze()
+#kadabra.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"[⨯] Kadabra - {task_t2:.2f} s")
 progressBar.smoothUpdate(50, "Kadabra Analyzing!")
@@ -82,3 +84,13 @@ report.write(earmo.toReport())
 report.write(kadabra.toReport())
 report.write(f"Analysis time: {t2:.2f} s\n")
 report.close()
+
+stats = Stats()
+data = {}
+data["appName"] = apkName
+data["time"] = t2
+data["earmo"] = earmo.getResult()
+data["kadabra"] = kadabra.getResult()
+data_aux = androidManifestAnalyzer.getResult()
+data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
+stats.addData(data)

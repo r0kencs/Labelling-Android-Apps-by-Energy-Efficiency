@@ -39,3 +39,13 @@ class AndroidManifestAnalyzer(Analyzer):
 
     def toReport(self):
         return f"Permissions: {len(self.permissions)}\nActivities: {len(self.activities)}\nServices: {len(self.services)}\nProviders: {len(self.providers)}\n"
+
+    def getResult(self):
+        data = {
+            "activities": len(self.activities),
+            "permissions": len(self.permissions),
+            "services": len(self.services),
+            "providers": len(self.providers)
+        }
+
+        return data

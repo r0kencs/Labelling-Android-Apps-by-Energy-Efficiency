@@ -38,6 +38,9 @@ class Earmo(Analyzer):
     def toReport(self):
         return f"EARMO: {len(self.patterns)}\n"
 
+    def getResult(self):
+        return len(self.patterns)
+
     def extractResults(self):
         patterns = []
 

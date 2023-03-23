@@ -38,6 +38,9 @@ class Kadabra(Analyzer):
     def toReport(self):
         return f"Kadabra: {len(self.patterns)}\n"
 
+    def getResult(self):
+        return len(self.patterns)
+
     def extractResults(self):
         shutil.copy2("tools/kadabra/results.json", self.outputPath)
 
