@@ -1,12 +1,12 @@
-from Analyzers.Analyzer import Analyzer
+from src.Analyzers.Analyzer import Analyzer
 
-from EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
-from EnergyAntiPatterns.ExcessiveMethodCalls import ExcessiveMethodCalls
-from EnergyAntiPatterns.HashMapUsage import HashMapUsage
-from EnergyAntiPatterns.InternalGetter import InternalGetter
-from EnergyAntiPatterns.MemberIgnoringMethod import MemberIgnoringMethod
+from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
+from src.EnergyAntiPatterns.ExcessiveMethodCalls import ExcessiveMethodCalls
+from src.EnergyAntiPatterns.HashMapUsage import HashMapUsage
+from src.EnergyAntiPatterns.InternalGetter import InternalGetter
+from src.EnergyAntiPatterns.MemberIgnoringMethod import MemberIgnoringMethod
 
-from EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
+from src.EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
 
 import subprocess
 import os

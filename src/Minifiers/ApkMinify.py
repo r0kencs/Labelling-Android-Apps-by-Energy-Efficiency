@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-from Minifiers.Minifier import Minifier
+from src.Minifiers.Minifier import Minifier
 
 class ApkMinify(Minifier):
     def __init__(self, apkPath):

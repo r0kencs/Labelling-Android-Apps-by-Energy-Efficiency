@@ -1,4 +1,4 @@
-from EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
+from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
 
 class InternalGetter(EnergyAntiPattern):
     def __init__(self):

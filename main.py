@@ -1,16 +1,16 @@
 import time
 import os
 
-from ProgressBar import ProgressBar
+from src.ProgressBar import ProgressBar
 
-from Minifiers.ApkMinify import ApkMinify
+from src.Minifiers.ApkMinify import ApkMinify
 
-from Decompilers.Dex2jar import Dex2jar
-from Decompilers.Jadx import Jadx
+from src.Decompilers.Dex2jar import Dex2jar
+from src.Decompilers.Jadx import Jadx
 
-from Analyzers.Earmo import Earmo
-from Analyzers.Kadabra import Kadabra
-from Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
+from src.Analyzers.Earmo import Earmo
+from src.Analyzers.Kadabra import Kadabra
+from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 
 print("")
 t1 = time.time()

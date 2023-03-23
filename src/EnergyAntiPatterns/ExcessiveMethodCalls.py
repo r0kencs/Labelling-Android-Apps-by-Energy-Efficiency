@@ -1,4 +1,4 @@
-from EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
+from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
 
 class ExcessiveMethodCalls(EnergyAntiPattern):
     def __init__(self):

@@ -1,11 +1,11 @@
-from Analyzers.Analyzer import Analyzer
+from src.Analyzers.Analyzer import Analyzer
 
-from EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
-from EnergyAntiPatterns.InlineGetterAndSetters import InlineGetterAndSetters
-from EnergyAntiPatterns.HashMapUsage import HashMapUsage
-from EnergyAntiPatterns.InlineClass import InlineClass
+from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
+from src.EnergyAntiPatterns.InlineGetterAndSetters import InlineGetterAndSetters
+from src.EnergyAntiPatterns.HashMapUsage import HashMapUsage
+from src.EnergyAntiPatterns.InlineClass import InlineClass
 
-from EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
+from src.EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
 
 import subprocess
 import os

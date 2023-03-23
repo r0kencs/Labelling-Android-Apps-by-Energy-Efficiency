@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-from Decompilers.Decompiler import Decompiler
+from src.Decompilers.Decompiler import Decompiler
 
 class Dex2jar(Decompiler):
     def __init__(self, apkPath, outputFolder="/dex2jar/"):
