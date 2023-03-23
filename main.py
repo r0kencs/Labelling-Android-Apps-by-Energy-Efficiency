@@ -17,7 +17,7 @@ t1 = time.time()
 
 progressBar = ProgressBar()
 
-apkPath = "apks/org.woheller69.omweather_13.apk"
+apkPath = "apks/stopthefire.apk"
 apkName = os.path.splitext(os.path.basename(apkPath))[0]
 
 progressBar.smoothUpdate(0, "ApkMinify Minifying APK!")

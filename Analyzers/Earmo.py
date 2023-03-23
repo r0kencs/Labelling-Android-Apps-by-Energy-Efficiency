@@ -82,7 +82,7 @@ class Earmo(Analyzer):
         "Trace=1\n",
         "Threads=1\n",
         "initialSizeRefactoringSequencePerc=50\n",
-        "independentRuns=5\n",
+        "independentRuns=3\n",
         "\n",
         "## Joules expresed in double format.  This value has to be >0 if not the Energy usage of an app will be 0\n",
         "\n",
