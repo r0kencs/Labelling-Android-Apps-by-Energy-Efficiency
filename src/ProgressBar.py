@@ -10,7 +10,15 @@ class ProgressBar:
         self.message = ""
         self.update(0, "")
 
-    def finishMessage(self, message):
+    def finishMessage(self, message, status):
+
+        if status:
+            statusMessage = "[✓]"
+        else:
+            statusMessage = "[⨯]"
+
+        message = f"{statusMessage} {message}"
+
         lineSize = toolbar_width + len("||") + len(" {0}% {1}".format(self.percentage, self.message))
         sys.stdout.write("\b" * lineSize) # return to start of line, after '['
 
