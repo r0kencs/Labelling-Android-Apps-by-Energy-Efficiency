@@ -6,8 +6,6 @@ class Stats:
 
     def addData(self, data):
 
-        print(self.fdf)
-
         df = pl.DataFrame(
             {
                 "App": [data["appName"]],
@@ -21,15 +19,7 @@ class Stats:
             }
         )
 
-        print(df)
+        final_df = pl.concat([self.fdf, df])
+        final_df = final_df.unique(subset="App", keep="last")
 
-        filtered = self.fdf.filter(pl.col("App") == data["appName"])
-
-        if (filtered.is_empty()):
-            final_df = pl.concat([self.fdf, df])
-        else:
-            final_df = df.join(self.fdf, on="App", how="left")
-
-        print(final_df)
-
-        #df.write_csv("results.csv")
+        final_df.write_csv("results.csv")
