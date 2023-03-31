@@ -1,5 +1,6 @@
 import time
 import os
+import sys
 
 from src.ProgressBar import ProgressBar
 
@@ -19,7 +20,7 @@ t1 = time.time()
 
 progressBar = ProgressBar()
 
-apkPath = "apks/stopthefire.apk"
+apkPath = sys.argv[1]
 apkName = os.path.splitext(os.path.basename(apkPath))[0]
 
 progressBar.smoothUpdate(0, "ApkMinify Minifying APK!")

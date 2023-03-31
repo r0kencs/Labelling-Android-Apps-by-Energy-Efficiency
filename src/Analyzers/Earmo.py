@@ -31,7 +31,7 @@ class Earmo(Analyzer):
     def analyze(self):
         self.prepare()
         os.chdir("tools/earmo")
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"])
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.extractResults()
         os.chdir("../..")
 

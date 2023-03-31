@@ -8,5 +8,5 @@ class Jadx(Decompiler):
         super().__init__(apkPath, outputFolder)
 
     def decompile(self):
-        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder, "-e"])
+        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder, "-e"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         #print(result.stdout)
