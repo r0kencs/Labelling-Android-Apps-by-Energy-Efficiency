@@ -12,6 +12,7 @@ from src.Decompilers.Jadx import Jadx
 from src.Analyzers.Earmo import Earmo
 from src.Analyzers.Kadabra import Kadabra
 from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
+from src.Analyzers.Lint import Lint
 
 from src.Stats import Stats
 
@@ -55,7 +56,7 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
 earmo = Earmo(apkName, dex2jarOutputPath)
-earmo.analyze()
+#earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
@@ -63,7 +64,7 @@ progressBar.smoothUpdate(40, "EARMO Analyzing!")
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
 kadabra = Kadabra(apkName, apkPath)
-kadabra.analyze()
+#kadabra.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Kadabra - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(50, "Kadabra Analyzing!")
@@ -75,6 +76,14 @@ androidManifestAnalyzer.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"AndroidManifestAnalyzer - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
+
+progressBar.smoothUpdate(60, "Lint Analyzing!")
+task_t1 = time.time()
+lint = Lint(apkName, jadxOutputPath)
+lint.analyze()
+task_t2 = time.time() - task_t1
+progressBar.finishMessage(f"Lint - {task_t2:.2f} s", True)
+progressBar.smoothUpdate(70, "Lint Analyzing!")
 
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
