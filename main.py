@@ -36,7 +36,7 @@ minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
 
 progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
 task_t1 = time.time()
-dex2jar = Dex2jar(minifiedApkPath)
+dex2jar = Dex2jar(apkPath)
 dex2jar.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Dex2Jar - {task_t2:.2f} s", True)
