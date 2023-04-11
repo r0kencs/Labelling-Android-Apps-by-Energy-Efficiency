@@ -1,6 +1,6 @@
 # Labelling-Android-Apps-by-Energy-Efficiency
 
-This project is a program that analyses an Android application based on it's energy efficieny with different already developed tools and combines the  results to generate a label.
+This project is a program that analyses an Android application based on it's energy efficiency with different already developed tools and combines the  results to generate a label.
 
 ## Prerequisites
 
