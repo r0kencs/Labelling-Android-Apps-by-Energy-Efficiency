@@ -13,6 +13,7 @@ from src.Analyzers.Earmo import Earmo
 from src.Analyzers.Kadabra import Kadabra
 from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 from src.Analyzers.Lint import Lint
+from src.Analyzers.ADoctor import ADoctor
 
 from src.Stats import Stats
 
@@ -27,7 +28,7 @@ apkName = os.path.splitext(os.path.basename(apkPath))[0]
 progressBar.smoothUpdate(0, "ApkMinify Minifying APK!")
 task_t1 = time.time()
 apkMinify = ApkMinify(apkPath)
-apkMinify.minify();
+#apkMinify.minify();
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"apkMinify - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(10, "ApkMinify Minifying APK!")
@@ -84,6 +85,15 @@ lint.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Lint - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(70, "Lint Analyzing!")
+
+
+progressBar.smoothUpdate(70, "aDoctor Analyzing!")
+task_t1 = time.time()
+aDoctor = ADoctor(apkName, jadxOutputPath)
+aDoctor.analyze()
+task_t2 = time.time() - task_t1
+progressBar.finishMessage(f"aDoctor - {task_t2:.2f} s", True)
+progressBar.smoothUpdate(80, "aDoctor Analyzing!")
 
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
