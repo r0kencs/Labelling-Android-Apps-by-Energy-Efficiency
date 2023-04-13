@@ -38,7 +38,7 @@ minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
 progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
 task_t1 = time.time()
 dex2jar = Dex2jar(apkPath)
-dex2jar.decompile()
+#dex2jar.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Dex2Jar - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
@@ -46,7 +46,7 @@ progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
 jadx = Jadx(apkPath)
-jadx.decompile()
+#jadx.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
@@ -81,7 +81,7 @@ progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
 progressBar.smoothUpdate(60, "Lint Analyzing!")
 task_t1 = time.time()
 lint = Lint(apkName, jadxOutputPath)
-lint.analyze()
+#lint.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Lint - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(70, "Lint Analyzing!")
@@ -102,6 +102,7 @@ report = open("output/" + apkName + "/report.txt", "w")
 report.write(androidManifestAnalyzer.toReport())
 report.write(earmo.toReport())
 report.write(kadabra.toReport())
+report.write(aDoctor.toReport())
 report.write(f"Analysis time: {t2:.2f} s\n")
 report.close()
 
@@ -111,6 +112,7 @@ data["appName"] = apkName
 data["time"] = t2
 data["earmo"] = earmo.getResult()
 data["kadabra"] = kadabra.getResult()
+data["adoctor"] = aDoctor.getResult()
 data_aux = androidManifestAnalyzer.getResult()
 data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
 #data["activities"], data["permissions"], data["services"], data["providers"] = 0, 0, 0, 0

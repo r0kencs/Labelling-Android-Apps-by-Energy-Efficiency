@@ -12,6 +12,7 @@ class Stats:
                 "Time": [data["time"]],
                 "EARMO": [data["earmo"]],
                 "Kadabra": [data["kadabra"]],
+                "ADoctor": [data["adoctor"]],
                 "Activities": [data["activities"]],
                 "Permissions": [data["permissions"]],
                 "Services": [data["services"]],
@@ -19,7 +20,10 @@ class Stats:
             }
         )
 
-        final_df = pl.concat([self.fdf, df])
-        final_df = final_df.unique(subset="App", keep="last")
+        if not self.fdf.is_empty():
+            final_df = pl.concat([self.fdf, df])
+            final_df = final_df.unique(subset="App", keep="last")
+        else:
+            final_df = df
 
         final_df.write_csv("results.csv")
