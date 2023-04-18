@@ -10,6 +10,7 @@ from src.EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
 import subprocess
 import os
 import shutil
+import glob
 
 class Earmo(Analyzer):
     def __init__(self, apkName, path):
@@ -31,8 +32,9 @@ class Earmo(Analyzer):
     def analyze(self):
         self.prepare()
         os.chdir("tools/earmo")
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        self.extractResults()
+        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"])
+        #self.extractResults()
+        self.clean()
         os.chdir("../..")
 
     def toReport(self):
@@ -55,6 +57,33 @@ class Earmo(Analyzer):
                         patterns.append(pattern)
 
         self.patterns = patterns
+
+    def clean(self):
+        otherFiles = [
+            "FUN_MOCell",
+            "FUN_NSGAII",
+            "IR_MinBound",
+            "METHOD_LOC_MaxBound",
+            "NMD_NAD_MinBound",
+            "NOParam_MaxBound",
+            "refactoringList-.txt"
+        ]
+
+        files = glob.glob("*.ini")
+        for file in files:
+            os.remove(file)
+
+        files = glob.glob("*.ser")
+        for file in files:
+            os.remove(file)
+
+        files = glob.glob("FitnessReport*.txt")
+        for file in files:
+            os.remove(file)
+
+        for file in otherFiles:
+            if os.path.exists(file):
+                os.remove(file)
 
     def prepare(self):
         f = open("output/" + self.apkName + "/earmo/conf.prop", "w+")

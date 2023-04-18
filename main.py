@@ -38,7 +38,7 @@ minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
 progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
 task_t1 = time.time()
 dex2jar = Dex2jar(apkPath)
-#dex2jar.decompile()
+dex2jar.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Dex2Jar - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
@@ -46,7 +46,7 @@ progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
 jadx = Jadx(apkPath)
-#jadx.decompile()
+jadx.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
@@ -57,7 +57,7 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
 earmo = Earmo(apkName, dex2jarOutputPath)
-#earmo.analyze()
+earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
