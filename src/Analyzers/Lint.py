@@ -13,10 +13,15 @@ class Lint(Analyzer):
             os.makedirs(self.outputPath)
 
     def analyze(self):
-        self.prepare()
-        result = subprocess.run(["cmd", "/c", "./gradlew", "lint"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if not os.path.exists(f"{self.outputPath}logs/"):
+            os.makedirs(f"{self.outputPath}logs/")
+        stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
+        stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
+
+        os.chdir(self.path)
+        result = subprocess.run(["cmd", "/c", "gradle", "wrapper"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "./gradlew", "lint"], stdout=stdoutFile, stderr=stderrFile)
         os.chdir("../../..")
 
-    def prepare(self):
-        os.chdir(self.path)
-        result = subprocess.run(["cmd", "/c", "gradle", "wrapper"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        stdoutFile.close()
+        stderrFile.close()

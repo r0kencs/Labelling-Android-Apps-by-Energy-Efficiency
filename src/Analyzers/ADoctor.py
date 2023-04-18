@@ -59,8 +59,17 @@ class ADoctor(Analyzer):
         self.patterns = []
 
     def analyze(self):
-        result = subprocess.run(["cmd", "/c", "java", "-cp", "tools/aDoctor/aDoctor.jar", "it.unisa.aDoctor.process.RunAndroidSmellDetection", self.path, self.outputFile, "111111111111111"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if not os.path.exists(f"{self.outputPath}logs/"):
+            os.makedirs(f"{self.outputPath}logs/")
+        stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
+        stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
+
+        result = subprocess.run(["cmd", "/c", "java", "-cp", "tools/aDoctor/aDoctor.jar", "it.unisa.aDoctor.process.RunAndroidSmellDetection", self.path, self.outputFile, "111111111111111"], stdout=stdoutFile, stderr=stderrFile)
+
         self.extractResults()
+
+        stdoutFile.close()
+        stderrFile.close()
 
     def toReport(self):
         return f"aDoctor: {len(self.patterns)}\n"

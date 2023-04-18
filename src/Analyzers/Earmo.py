@@ -16,10 +16,10 @@ class Earmo(Analyzer):
     def __init__(self, apkName, path):
         super().__init__(apkName, path)
 
-        outputPath = "output/" + self.apkName + "/earmo/"
+        self.outputPath = "output/" + self.apkName + "/earmo/"
 
-        if not os.path.exists(outputPath):
-            os.makedirs(outputPath)
+        if not os.path.exists(self.outputPath):
+            os.makedirs(self.outputPath)
 
         self.antiPatternTypes = {
             "InlineGetterAndSetters": InlineGetterAndSetters,
@@ -30,12 +30,20 @@ class Earmo(Analyzer):
         self.patterns = []
 
     def analyze(self):
+        if not os.path.exists(f"{self.outputPath}logs/"):
+            os.makedirs(f"{self.outputPath}logs/")
+        stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
+        stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
+
         self.prepare()
         os.chdir("tools/earmo")
-        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"])
+        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
         #self.extractResults()
         self.clean()
         os.chdir("../..")
+
+        stdoutFile.close()
+        stderrFile.close()
 
     def toReport(self):
         return f"EARMO: {len(self.patterns)}\n"

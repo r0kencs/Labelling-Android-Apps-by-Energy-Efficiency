@@ -12,5 +12,8 @@ class Jadx(Decompiler):
             os.makedirs(f"{self.outputFolder}logs/")
         stdoutFile = open(f"{self.outputFolder}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputFolder}logs/err.txt", "w+")
+
         result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder, "-e", "--no-imports"], stdout=stdoutFile, stderr=stderrFile)
-        #print(result.stdout)
+
+        stdoutFile.close()
+        stderrFile.close()

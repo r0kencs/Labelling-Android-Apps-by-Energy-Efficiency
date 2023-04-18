@@ -32,8 +32,16 @@ class Kadabra(Analyzer):
         self.patterns = []
 
     def analyze(self):
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/kadabra/kadabra.jar", "tools/kadabra/main.js", "-p", self.path, "-WC", "-APF", "package!", "-o", self.outputPath, "-s", "-X", "-C"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        if not os.path.exists(f"{self.outputPath}logs/"):
+            os.makedirs(f"{self.outputPath}logs/")
+        stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
+        stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
+
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/kadabra/kadabra.jar", "tools/kadabra/main.js", "-p", self.path, "-WC", "-APF", "package!", "-o", self.outputPath, "-s", "-X", "-C"], stdout=stdoutFile, stderr=stderrFile)
         self.extractResults()
+
+        stdoutFile.close()
+        stderrFile.close()
 
     def toReport(self):
         return f"Kadabra: {len(self.patterns)}\n"
