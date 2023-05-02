@@ -14,6 +14,7 @@ from src.Analyzers.Kadabra import Kadabra
 from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 from src.Analyzers.Lint import Lint
 from src.Analyzers.ADoctor import ADoctor
+from src.Analyzers.Paprika import Paprika
 
 from src.Stats import Stats
 
@@ -38,7 +39,7 @@ minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
 progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
 task_t1 = time.time()
 dex2jar = Dex2jar(apkPath)
-dex2jar.decompile()
+#dex2jar.decompile()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Dex2Jar - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
@@ -56,15 +57,15 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
-earmo = Earmo(apkName, dex2jarOutputPath)
-earmo.analyze()
+earmo = Earmo(apkName, f"{jadxOutputPath}minified")
+#earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
 
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
-kadabra = Kadabra(apkName, apkPath)
+kadabra = Kadabra(apkName, f"{jadxOutputPath}minified")
 #kadabra.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Kadabra - {task_t2:.2f} s", True)
@@ -86,14 +87,21 @@ task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Lint - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(70, "Lint Analyzing!")
 
-
 progressBar.smoothUpdate(70, "aDoctor Analyzing!")
 task_t1 = time.time()
 aDoctor = ADoctor(apkName, jadxOutputPath)
-aDoctor.analyze()
+#aDoctor.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"aDoctor - {task_t2:.2f} s", True)
 progressBar.smoothUpdate(80, "aDoctor Analyzing!")
+
+progressBar.smoothUpdate(80, "Paprika Analyzing!")
+task_t1 = time.time()
+paprika = Paprika(apkName, apkPath)
+#paprika.analyze()
+task_t2 = time.time() - task_t1
+progressBar.finishMessage(f"Paprika - {task_t2:.2f} s", True)
+progressBar.smoothUpdate(90, "Paprika Analyzing!")
 
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")

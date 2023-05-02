@@ -37,8 +37,8 @@ class Earmo(Analyzer):
 
         self.prepare()
         os.chdir("tools/earmo")
-        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
-        #self.extractResults()
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
+        self.extractResults()
         self.clean()
         os.chdir("../..")
 
@@ -109,7 +109,7 @@ class Earmo(Analyzer):
         "qmood =0\n",
         "\n",
         "#modes 0 class files; 1 java files; 2 jar files\n",
-        "generateFromSourceCode=2\n",
+        "generateFromSourceCode=1\n",
         "\n",
         "\n",
         "generateAllRefOpp=1\n",
