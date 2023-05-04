@@ -37,6 +37,8 @@ class AndroidManifestAnalyzer(Analyzer):
         self.services = services
         self.providers = providers
 
+        self.status = True
+
     def toReport(self):
         return f"Permissions: {len(self.permissions)}\nActivities: {len(self.activities)}\nServices: {len(self.services)}\nProviders: {len(self.providers)}\n"
 

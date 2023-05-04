@@ -17,3 +17,5 @@ class Dex2jar(Decompiler):
 
         stdoutFile.close()
         stderrFile.close()
+
+        self.status = True

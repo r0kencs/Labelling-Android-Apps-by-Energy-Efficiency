@@ -26,6 +26,8 @@ class Lint(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
+        self.status = True
+
     def prepare(self):
         shutil.copytree(f"{self.path}minified", f"{self.outputPath}sources")
         shutil.copytree(f"{self.path}resources", f"{self.outputPath}resources")

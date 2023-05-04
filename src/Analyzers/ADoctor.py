@@ -36,8 +36,6 @@ class ADoctor(Analyzer):
         if not os.path.exists(self.outputPath):
             os.makedirs(self.outputPath)
 
-            DW,IDFP,IDS,ISQLQ,IGS,LIC,LT,MIM,NLMR,PD,RAM,SL,UC
-
         self.antiPatternTypes = {
             "DTWC": DataTransmissionWithoutCompression,
             "DR": DebuggableRelease,
@@ -71,6 +69,8 @@ class ADoctor(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
+        self.status = True
+
     def toReport(self):
         return f"aDoctor: {len(self.patterns)}\n"
 
@@ -83,6 +83,8 @@ class ADoctor(Analyzer):
         results = pl.read_csv(self.outputFile)
 
         for antiPatternType, antiPattern in self.antiPatternTypes.items():
+            n = pl.sum(results.get_column(antiPatternType))
+            if n == None: continue
             for i in range(pl.sum(results.get_column(antiPatternType))):
                 patterns.append(antiPattern)
 

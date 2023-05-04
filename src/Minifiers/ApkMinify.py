@@ -13,3 +13,5 @@ class ApkMinify(Minifier):
         packageName = "L" + result.stdout.decode("utf-8").split()[0].replace(".", "/")
 
         result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/ApkMinify/apkMinify.jar", self.apkPath, "-o", self.outputPath, "-p", packageName])
+
+        self.status = True

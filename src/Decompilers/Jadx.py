@@ -22,6 +22,8 @@ class Jadx(Decompiler):
 
         self.minify()
 
+        self.status = True
+
     def minify(self):
         if os.path.exists(f"{self.outputFolder}minified") and os.path.isdir(f"{self.outputFolder}minified"):
             shutil.rmtree(f"{self.outputFolder}minified")

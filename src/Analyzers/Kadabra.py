@@ -43,6 +43,8 @@ class Kadabra(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
+        self.status = True
+
     def toReport(self):
         return f"Kadabra: {len(self.patterns)}\n"
 

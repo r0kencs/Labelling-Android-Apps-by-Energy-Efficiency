@@ -22,3 +22,5 @@ class Paprika(Analyzer):
 
         stdoutFile.close()
         stderrFile.close()
+
+        self.status = True

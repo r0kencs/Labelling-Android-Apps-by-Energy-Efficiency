@@ -54,13 +54,15 @@ class Earmo(Analyzer):
 
         self.prepare()
         os.chdir("tools/earmo")
-        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
         self.extractResults()
         self.clean()
         os.chdir("../..")
 
         stdoutFile.close()
         stderrFile.close()
+
+        self.status = True
 
     def toReport(self):
         return f"EARMO: {len(self.patterns)}\n"
@@ -152,10 +154,10 @@ class Earmo(Analyzer):
         "#ResultsTesting/\n",
         "outputDirectory = " + "../../output/" + self.apkName + "/earmo/output/" + "\n",
         "#./ResultsTesting/\n",
-        "Trace=1\n",
-        "Threads=1\n",
+        "Trace=0\n",
+        "Threads=2\n",
         "initialSizeRefactoringSequencePerc=50\n",
-        "independentRuns=3\n",
+        "independentRuns=1\n",
         "\n",
         "## Joules expresed in double format.  This value has to be >0 if not the Energy usage of an app will be 0\n",
         "\n",
