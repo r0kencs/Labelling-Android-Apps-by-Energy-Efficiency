@@ -68,9 +68,6 @@ class Earmo(Analyzer):
     def getResult(self):
         return len(self.patterns)
 
-    def getStatus(self):
-        return self.status
-
     def extractResults(self):
         patterns = []
 

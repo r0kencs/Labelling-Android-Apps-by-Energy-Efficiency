@@ -14,6 +14,11 @@ class Minifier(ABC):
 
         self.outputPath = outputPath + self.apkName + ".apk"
 
+        self.status = False
+
     @abstractmethod
     def minify(self):
         print("@Minifier minifying...")
+
+    def getStatus(self):
+        return self.status

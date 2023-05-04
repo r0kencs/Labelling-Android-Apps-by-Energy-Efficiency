@@ -15,7 +15,7 @@ class Jadx(Decompiler):
         stdoutFile = open(f"{self.outputFolder}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputFolder}logs/err.txt", "w+")
 
-        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder, "-e", "--no-imports"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder], stdout=stdoutFile, stderr=stderrFile)
 
         stdoutFile.close()
         stderrFile.close()
@@ -26,7 +26,7 @@ class Jadx(Decompiler):
         if os.path.exists(f"{self.outputFolder}minified") and os.path.isdir(f"{self.outputFolder}minified"):
             shutil.rmtree(f"{self.outputFolder}minified")
 
-        shutil.copytree(f"{self.outputFolder}app/src/main/java", f"{self.outputFolder}minified")
+        shutil.copytree(f"{self.outputFolder}sources", f"{self.outputFolder}minified")
 
         ignorePackages = ["android", "androidx", "com/google/android", "com/google/firebase", "kotlin", "kotlinx"]
 

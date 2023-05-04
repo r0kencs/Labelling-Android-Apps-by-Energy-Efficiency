@@ -13,7 +13,7 @@ class AndroidManifestAnalyzer(Analyzer):
         services = []
         providers = []
 
-        with open(self.path + "app/src/main/AndroidManifest.xml") as file:
+        with open(f"{self.path}resources/AndroidManifest.xml") as file:
             document = parse(file)
 
             nodes = document.getElementsByTagName('uses-permission')

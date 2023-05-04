@@ -10,6 +10,11 @@ class Decompiler(ABC):
         outputSrc = "./output/" + self.apkName + "/" + outputFolder
         self.outputFolder = outputSrc
 
+        self.status = False
+
     @abstractmethod
     def decompile(self):
         print("@Decompiler decompiling...")
+
+    def getStatus(self):
+        return self.status

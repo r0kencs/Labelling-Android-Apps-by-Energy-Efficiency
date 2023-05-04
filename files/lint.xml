@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="all" severity="ignore" />
+    <issue id="BluetoothLowEnergy" severity="error" />
+    <issue id="DarkUI" severity="error" />
+    <issue id="DurableWakeLock" severity="error" />
+    <issue id="FusedLocationProvider" severity="error" />
+    <issue id="KeepCPUOn" severity="error" />
+    <issue id="KeepScreenOn" severity="error" />
+    <issue id="RigidAlarm" severity="error" />
+    <issue id="SensorCoalesce" severity="error" />
+    <issue id="SensorLeak" severity="error" />
+    <issue id="UncompressedDataTransmission" severity="error" />
+</lint>
