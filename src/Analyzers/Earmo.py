@@ -1,9 +1,18 @@
 from src.Analyzers.Analyzer import Analyzer
 
 from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
-from src.EnergyAntiPatterns.InlineGetterAndSetters import InlineGetterAndSetters
+
+from src.EnergyAntiPatterns.BindingResources2Early import BindingResources2Early
+from src.EnergyAntiPatterns.Blob import Blob
 from src.EnergyAntiPatterns.HashMapUsage import HashMapUsage
-from src.EnergyAntiPatterns.InlineClass import InlineClass
+from src.EnergyAntiPatterns.InlineGetterAndSetters import InlineGetterAndSetters
+from src.EnergyAntiPatterns.LargeClassLowCohesion import LargeClassLowCohesion
+from src.EnergyAntiPatterns.LazyClass import LazyClass
+from src.EnergyAntiPatterns.LongParameterList import LongParameterList
+from src.EnergyAntiPatterns.RefusedParentBequest import RefusedParentBequest
+from src.EnergyAntiPatterns.ReleasingResources2Late import ReleasingResources2Late
+from src.EnergyAntiPatterns.SpaghettiCode import SpaghettiCode
+from src.EnergyAntiPatterns.SpeculativeGenerality import SpeculativeGenerality
 
 from src.EnergyAntiPatterns.UnknownAntiPattern import UnknownAntiPattern
 
@@ -22,9 +31,17 @@ class Earmo(Analyzer):
             os.makedirs(self.outputPath)
 
         self.antiPatternTypes = {
-            "InlineGetterAndSetters": InlineGetterAndSetters,
+            "BindingResources2Early": BindingResources2Early,
+            "Blob": Blob,
             "HashMapUsage": HashMapUsage,
-            "InlineClass": InlineClass
+            "InlineGetterAndSetters": InlineGetterAndSetters,
+            "LargeClassLowCohesion": LargeClassLowCohesion,
+            "LazyClass": LazyClass,
+            "LongParameterList": LongParameterList,
+            "RefusedParentBequest": RefusedParentBequest,
+            "ReleasingResources2Late": ReleasingResources2Late,
+            "SpaghettiCode": SpaghettiCode,
+            "SpeculativeGenerality": SpeculativeGenerality
         }
 
         self.patterns = []
@@ -37,7 +54,7 @@ class Earmo(Analyzer):
 
         self.prepare()
         os.chdir("tools/earmo")
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
+        #result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
         self.extractResults()
         self.clean()
         os.chdir("../..")
@@ -51,18 +68,37 @@ class Earmo(Analyzer):
     def getResult(self):
         return len(self.patterns)
 
+    def getStatus(self):
+        return self.status
+
     def extractResults(self):
         patterns = []
 
-        with open("refactoringList-.txt") as f:
-            lines = f.readlines()
-            for line in lines:
-                lineData = line[1:-1].split(": ")
-                for auxLineData in lineData:
-                    if auxLineData.startswith("_type="):
-                        patternType = auxLineData.split("=")[1]
-                        pattern = self.antiPatternTypes.get(patternType, UnknownAntiPattern)()
+        filePatterns = {
+            "BindingResources2Early": "DetectionResults in  for BindingResources2Early.ini",
+            "Blob": "DetectionResults in  for Blob.ini",
+            "HashMapUsage": "DetectionResults in  for HashMapUsageAndroid.ini",
+            "InternalGetterAndSetters": "DetectionResults in  for InternalGetterAndSettersAndroid.ini",
+            "LargeClassLowCohesion": "DetectionResults in  for LargeClassLowCohesion.ini",
+            "LazyClass": "DetectionResults in  for LazyClass.ini",
+            "LongParameterList": "DetectionResults in  for LongParameterList.ini",
+            "RefusedParentBequest": "DetectionResults in  for RefusedParentBequest.ini",
+            "ReleasingResources2Late": "DetectionResults in  for ReleasingResources2Late.ini",
+            "SpaghettiCode": "DetectionResults in  for SpaghettiCode.ini",
+            "SpeculativeGenerality": "DetectionResults in  for SpeculativeGenerality.ini"
+        }
+
+        try:
+            for patternName, patternFile in filePatterns.items():
+                with open(patternFile) as f:
+                    last_line = f.readlines()[-1]
+                    n = int(last_line.split(":")[1])
+                    for i in range(n):
+                        pattern = self.antiPatternTypes.get(patternName, UnknownAntiPattern)()
                         patterns.append(pattern)
+            self.status = True
+        except Exception as e:
+            self.status = False
 
         self.patterns = patterns
 
