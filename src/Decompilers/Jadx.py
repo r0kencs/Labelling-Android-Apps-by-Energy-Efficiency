@@ -30,7 +30,7 @@ class Jadx(Decompiler):
 
         shutil.copytree(f"{self.outputFolder}sources", f"{self.outputFolder}minified")
 
-        ignorePackages = ["android", "androidx", "com/google/android", "com/google/firebase", "kotlin", "kotlinx"]
+        ignorePackages = ["android", "androidx", "com/google", "kotlin", "kotlinx", "org/intellij", "org/jetbrains"]
 
         for ignorePackage in ignorePackages:
             path = f"{self.outputFolder}minified/{ignorePackage}"

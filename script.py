@@ -1,5 +1,8 @@
 import subprocess
 
+import glob
+
+"""
 apps = [
     "stopthefire.apk",
     "1_CS_app-debug.apk",
@@ -22,7 +25,22 @@ apps = [
     "pinball.apk",
     "qwotable.apk"
 ]
+"""
+
+"""
+apps = [
+    "1_CS_app-debug.apk",
+    "2_CS_app-debug.apk",
+    "3_CS_app-debug.apk",
+    "4_CS_app-debug.apk",
+    "5_CS_app-debug.apk",
+    "6_CS_app-debug.apk",
+    "7_CS_app-debug.apk",
+]
+"""
+
+apps = glob.glob("testApks/Connectivity/*.apk")
 
 for app in apps:
     print(f"Analyzing {app}...")
-    result = subprocess.run(["cmd", "/c", "python", "main.py", f"apks/{app}"])
+    result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}"])
