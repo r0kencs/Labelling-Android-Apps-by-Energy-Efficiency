@@ -1,10 +1,7 @@
-App,Time,EARMO,Kadabra,ADoctor,Activities,Permissions,Services,Providers
-arity,100.20389461517334,4,0,0,5,1,0,1
-stopthefire,243.84512042999268,72,47,0,9,8,4,1
-1_CS_app-debug,50.802170276641846,0,0,0,2,0,0,1
-2_CS_app-debug,650.9709029197693,75,0,0,3,4,0,1
-com.tailscale.ipn_165,67.18028330802917,3,1,0,1,9,6,1
-com.w2sv.wifiwidget_24,105.66609072685242,14,0,0,2,10,4,1
-it.daniealeverducci.ojo_7,198.76468229293823,14,11,0,2,2,0,1
-org.localsend.localsend_app_30,143.49665999412537,21,11,0,2,13,1,2
-org.ostrya.presencepublisher_50,344.78011178970337,100,11,0,1,15,8,1
+App,Time,EARMO,Kadabra,ADoctor,Paprika,Activities,Permissions,Services,Providers
+stopthefire,42.60288429260254,0,0,0,427,0,0,0,0
+com.w2sv.wifiwidget_24,40.94678997993469,0,0,0,3,0,0,0,0
+it.daniealeverducci.ojo_7,59.80795335769653,0,0,0,881,0,0,0,0
+org.localsend.localsend_app_30,33.540077447891235,0,0,0,11,0,0,0,0
+org.ostrya.presencepublisher_50,38.817084312438965,0,0,0,4,0,0,0,0
+com.tailscale.ipn_165,24.657461881637573,0,0,0,582,0,0,0,0

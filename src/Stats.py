@@ -13,6 +13,7 @@ class Stats:
                 "EARMO": [data["earmo"]],
                 "Kadabra": [data["kadabra"]],
                 "ADoctor": [data["adoctor"]],
+                "Paprika": [data["paprika"]],
                 "Activities": [data["activities"]],
                 "Permissions": [data["permissions"]],
                 "Services": [data["services"]],
