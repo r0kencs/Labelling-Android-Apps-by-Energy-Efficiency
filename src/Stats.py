@@ -12,6 +12,7 @@ class Stats:
                 "Time": [data["time"]],
                 "EARMO": [data["earmo"]],
                 "Kadabra": [data["kadabra"]],
+                "Lint": [data["lint"]],
                 "ADoctor": [data["adoctor"]],
                 "Paprika": [data["paprika"]],
                 "Activities": [data["activities"]],
