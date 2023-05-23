@@ -16,6 +16,7 @@ from src.Analyzers.AndroidManifestAnalyzer import AndroidManifestAnalyzer
 from src.Analyzers.Lint import Lint
 from src.Analyzers.ADoctor import ADoctor
 from src.Analyzers.Paprika import Paprika
+from src.Analyzers.Relda2 import Relda2
 
 from src.Stats import Stats
 
@@ -59,7 +60,7 @@ jadxOutputPath = "output/" + apkName + "/jadx/"
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
 earmo = Earmo(apkName, f"{jadxOutputPath}minified")
-#earmo.analyze()
+earmo.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", earmo.getStatus())
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
@@ -67,7 +68,7 @@ progressBar.smoothUpdate(40, "EARMO Analyzing!")
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
 kadabra = Kadabra(apkName, f"{jadxOutputPath}minified")
-#kadabra.analyze()
+kadabra.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Kadabra - {task_t2:.2f} s", kadabra.getStatus())
 progressBar.smoothUpdate(50, "Kadabra Analyzing!")
@@ -75,7 +76,7 @@ progressBar.smoothUpdate(50, "Kadabra Analyzing!")
 progressBar.smoothUpdate(50, "AndroidManifestAnalyzer Analyzing!")
 task_t1 = time.time()
 androidManifestAnalyzer = AndroidManifestAnalyzer(apkName, jadxOutputPath)
-#androidManifestAnalyzer.analyze()
+androidManifestAnalyzer.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"AndroidManifestAnalyzer - {task_t2:.2f} s", androidManifestAnalyzer.getStatus())
 progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
@@ -91,7 +92,7 @@ progressBar.smoothUpdate(70, "Lint Analyzing!")
 progressBar.smoothUpdate(70, "aDoctor Analyzing!")
 task_t1 = time.time()
 aDoctor = ADoctor(apkName, jadxOutputPath)
-#aDoctor.analyze()
+aDoctor.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"aDoctor - {task_t2:.2f} s", aDoctor.getStatus())
 progressBar.smoothUpdate(80, "aDoctor Analyzing!")
@@ -99,16 +100,24 @@ progressBar.smoothUpdate(80, "aDoctor Analyzing!")
 progressBar.smoothUpdate(80, "Paprika Analyzing!")
 task_t1 = time.time()
 paprika = Paprika(apkName, apkPath)
-#paprika.analyze()
+paprika.analyze()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Paprika - {task_t2:.2f} s", paprika.getStatus())
 progressBar.smoothUpdate(90, "Paprika Analyzing!")
+
+progressBar.smoothUpdate(90, "Relda2 Analyzing!")
+task_t1 = time.time()
+relda2 = Relda2(apkName, apkPath)
+relda2.analyze()
+task_t2 = time.time() - task_t1
+progressBar.finishMessage(f"Relda2 - {task_t2:.2f} s", relda2.getStatus())
+progressBar.smoothUpdate(100, "Relda2 Analyzing!")
 
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
 
 report = open("output/" + apkName + "/report.txt", "w")
-#report.write(androidManifestAnalyzer.toReport())
+report.write(androidManifestAnalyzer.toReport())
 report.write(earmo.toReport())
 report.write(kadabra.toReport())
 report.write(lint.toReport())
@@ -126,7 +135,7 @@ data["kadabra"] = kadabra.getResult()
 data["lint"] = lint.getResult()
 data["adoctor"] = aDoctor.getResult()
 data["paprika"] = paprika.getResult()
-#data_aux = androidManifestAnalyzer.getResult()
-#data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
-data["activities"], data["permissions"], data["services"], data["providers"] = 0, 0, 0, 0
+data_aux = androidManifestAnalyzer.getResult()
+data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
+#data["activities"], data["permissions"], data["services"], data["providers"] = 0, 0, 0, 0
 stats.addData(data)

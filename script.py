@@ -39,7 +39,8 @@ apps = [
 ]
 """
 
-apps = glob.glob("testApks/Connectivity/*.apk")
+#apps = glob.glob("testApks/Connectivity/*.apk")
+apps = glob.glob("testApks/*/*.apk")
 
 size = len(apps)
 
