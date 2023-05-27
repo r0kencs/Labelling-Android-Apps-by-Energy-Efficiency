@@ -28,23 +28,7 @@ progressBar = ProgressBar()
 apkPath = sys.argv[1]
 apkName = os.path.splitext(os.path.basename(apkPath))[0]
 
-progressBar.smoothUpdate(0, "ApkMinify Minifying APK!")
-task_t1 = time.time()
-apkMinify = ApkMinify(apkPath)
-#apkMinify.minify();
-task_t2 = time.time() - task_t1
-progressBar.finishMessage(f"apkMinify - {task_t2:.2f} s", apkMinify.getStatus())
-progressBar.smoothUpdate(10, "ApkMinify Minifying APK!")
-
-minifiedApkPath = "output/" + apkName + "/minified/" + apkName + ".apk"
-
-progressBar.smoothUpdate(10, "Dex2Jar Decompiling APK!")
-task_t1 = time.time()
-dex2jar = Dex2jar(apkPath)
-#dex2jar.decompile()
-task_t2 = time.time() - task_t1
-progressBar.finishMessage(f"Dex2Jar - {task_t2:.2f} s", dex2jar.getStatus())
-progressBar.smoothUpdate(20, "Dex2Jar Decompiling APK!")
+apkCategory = sys.argv[2]
 
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
@@ -123,18 +107,21 @@ report.write(kadabra.toReport())
 report.write(lint.toReport())
 report.write(aDoctor.toReport())
 report.write(paprika.toReport())
+report.write(relda2.toReport())
 report.write(f"Analysis time: {t2:.2f} s\n")
 report.close()
 
 stats = Stats()
 data = {}
 data["appName"] = apkName
+data["category"] = apkCategory
 data["time"] = t2
 data["earmo"] = earmo.getResult()
 data["kadabra"] = kadabra.getResult()
 data["lint"] = lint.getResult()
 data["adoctor"] = aDoctor.getResult()
 data["paprika"] = paprika.getResult()
+data["relda2"] = relda2.getResult()
 data_aux = androidManifestAnalyzer.getResult()
 data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
 #data["activities"], data["permissions"], data["services"], data["providers"] = 0, 0, 0, 0

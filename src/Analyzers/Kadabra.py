@@ -52,6 +52,11 @@ class Kadabra(Analyzer):
         return len(self.patterns)
 
     def extractResults(self):
+
+        if not os.path.exists("tools/kadabra/results.json"):
+            self.status = False
+            return
+
         shutil.copy2("tools/kadabra/results.json", self.outputPath)
 
         patterns = []
@@ -66,5 +71,7 @@ class Kadabra(Analyzer):
                 for _ in patternList:
                     pattern = self.antiPatternTypes.get(patternType, UnknownAntiPattern)()
                     patterns.append(pattern)
+
+        os.remove("tools/kadabra/results.json")
 
         self.patterns = patterns

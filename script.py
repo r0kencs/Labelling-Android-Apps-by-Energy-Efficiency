@@ -45,6 +45,9 @@ apps = glob.glob("testApks/*/*.apk")
 size = len(apps)
 
 for i, app in enumerate(apps):
+    category = app.split("\\")[-2]
+
     print(f"Analyzing {app}...")
+    print(f"Category: {category}")
     print(f"[{i+1} of {size}]")
-    result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}"])
+    result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}", f"{category}"])

@@ -9,12 +9,14 @@ class Stats:
         df = pl.DataFrame(
             {
                 "App": [data["appName"]],
+                "Category": [data["category"]],
                 "Time": [data["time"]],
                 "EARMO": [data["earmo"]],
                 "Kadabra": [data["kadabra"]],
                 "Lint": [data["lint"]],
                 "ADoctor": [data["adoctor"]],
                 "Paprika": [data["paprika"]],
+                "Relda2": [data["relda2"]],
                 "Activities": [data["activities"]],
                 "Permissions": [data["permissions"]],
                 "Services": [data["services"]],

@@ -1,5 +1,6 @@
 from src.Analyzers.Analyzer import Analyzer
 
+import subprocess
 import os
 
 

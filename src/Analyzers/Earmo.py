@@ -155,7 +155,7 @@ class Earmo(Analyzer):
         "outputDirectory = " + "../../output/" + self.apkName + "/earmo/output/" + "\n",
         "#./ResultsTesting/\n",
         "Trace=0\n",
-        "Threads=2\n",
+        "Threads=4\n",
         "initialSizeRefactoringSequencePerc=50\n",
         "independentRuns=1\n",
         "\n",
