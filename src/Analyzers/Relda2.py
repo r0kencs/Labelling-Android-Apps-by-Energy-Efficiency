@@ -22,7 +22,11 @@ class Relda2(Analyzer):
         stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
 
-        result = subprocess.run(["cmd", "/c", "python2", "tools/relda2/Relda2.py", "-f", "-r", f"{self.outputPath}", f"{self.path}"], stdout=stdoutFile, stderr=stderrFile)
+        os.chdir("tools/relda2")
+
+        result = subprocess.run(["cmd", "/c", "python2", "Relda2.py", "-f", "-r", f"../../{self.outputPath}", f"../../{self.path}"], stdout=stdoutFile, stderr=stderrFile)
+
+        os.chdir("../..")
 
         stdoutFile.close()
         stderrFile.close()

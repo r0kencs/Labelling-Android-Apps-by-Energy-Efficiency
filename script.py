@@ -1,53 +1,46 @@
 import subprocess
 
 import glob
+from itertools import chain
+from itertools import zip_longest
 
-"""
-apps = [
-    "stopthefire.apk",
-    "1_CS_app-debug.apk",
-    "2_CS_app-debug.apk",
-    "3_CS_app-debug.apk",
-    "4_CS_app-debug.apk",
-    "5_CS_app-debug.apk",
-    "6_CS_app-debug.apk",
-    "7_CS_app-debug.apk",
-    "arity.apk",
-    "btcmap.apk",
-    "calculator.apk",
-    "challenge1.apk",
-    "com.fsck.k9_35009.apk",
-    "com.simondalvai.ball2box_44.apk",
-    "fastnfitness.apk",
-    "husky.apk",
-    "omweather.apk",
-    "org.woheller69.omweather_13.apk",
-    "pinball.apk",
-    "qwotable.apk"
-]
-"""
+from datetime import datetime
 
-"""
-apps = [
-    "1_CS_app-debug.apk",
-    "2_CS_app-debug.apk",
-    "3_CS_app-debug.apk",
-    "4_CS_app-debug.apk",
-    "5_CS_app-debug.apk",
-    "6_CS_app-debug.apk",
-    "7_CS_app-debug.apk",
-]
-"""
+def twolists(*lists):
+    return [x for x in chain.from_iterable(zip_longest(*lists)) if x is not None]
 
-#apps = glob.glob("testApks/Connectivity/*.apk")
-apps = glob.glob("testApks/*/*.apk")
+apps_connectivity = glob.glob("testApks/Connectivity/*.apk")
+apps_development = glob.glob("testApks/Development/*.apk")
+apps_games = glob.glob("testApks/Games/*.apk")
+apps_graphics = glob.glob("testApks/Graphics/*.apk")
+apps_internet = glob.glob("testApks/Internet/*.apk")
+apps_money = glob.glob("testApks/Money/*.apk")
+apps_multimedia = glob.glob("testApks/Multimedia/*.apk")
+apps_navigation = glob.glob("testApks/Navigation/*.apk")
+apps_phoneAndSms = glob.glob("testApks/Phone and SMS/*.apk")
+apps_reading = glob.glob("testApks/Reading/*.apk")
+apps_scienceAndEducation = glob.glob("testApks/Science and Education/*.apk")
+apps_security = glob.glob("testApks/Security/*.apk")
+apps_sportsAndHealth = glob.glob("testApks/Sports and Health/*.apk")
+apps_system = glob.glob("testApks/System/*.apk")
+apps_theming = glob.glob("testApks/Theming/*.apk")
+apps_time = glob.glob("testApks/Time/*.apk")
+apps_writing = glob.glob("testApks/Writing/*.apk")
+
+apps = twolists(apps_connectivity, apps_development, apps_games, apps_graphics, apps_internet, apps_money,
+apps_multimedia, apps_navigation, apps_phoneAndSms, apps_reading, apps_scienceAndEducation, apps_security,
+apps_sportsAndHealth, apps_system, apps_theming, apps_time, apps_writing)
 
 size = len(apps)
 
 for i, app in enumerate(apps):
-    category = app.split("\\")[-2]
+    appName = app.split("\\")[-1]
+    category = app.split("\\")[0].split("/")[-1]
 
-    print(f"Analyzing {app}...")
-    print(f"Category: {category}")
+    now = datetime.now()
+    currentTime = now.strftime("%H:%M:%S")
+
+    print(f"Analyzing {appName}...")
+    print(f"Category: {category}\tStart Time: {currentTime}")
     print(f"[{i+1} of {size}]")
     result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}", f"{category}"])
