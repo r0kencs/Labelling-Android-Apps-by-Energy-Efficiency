@@ -69,7 +69,7 @@ class ADoctor(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"aDoctor: {len(self.patterns)}\n"

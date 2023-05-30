@@ -57,7 +57,7 @@ class Lint(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"Lint: {len(self.patterns)}\n"

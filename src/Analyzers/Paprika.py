@@ -60,7 +60,7 @@ class Paprika(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"Paprika: {len(self.patterns)}\n"

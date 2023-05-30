@@ -31,7 +31,7 @@ class Relda2(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"Relda2: {len(self.patterns)}\n"

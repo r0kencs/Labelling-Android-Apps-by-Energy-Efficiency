@@ -62,7 +62,7 @@ class Earmo(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"EARMO: {len(self.patterns)}\n"
@@ -95,9 +95,9 @@ class Earmo(Analyzer):
                     for i in range(n):
                         pattern = self.antiPatternTypes.get(patternName, UnknownAntiPattern)()
                         patterns.append(pattern)
-            self.status = True
+            self.status = 1
         except Exception as e:
-            self.status = False
+            self.status = -1
 
         self.patterns = patterns
 

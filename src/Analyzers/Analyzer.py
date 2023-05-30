@@ -4,7 +4,7 @@ class Analyzer(ABC):
     def __init__(self, apkName, path):
         self.apkName = apkName
         self.path = path
-        self.status = False
+        self.status = 0
 
     @abstractmethod
     def analyze(self):

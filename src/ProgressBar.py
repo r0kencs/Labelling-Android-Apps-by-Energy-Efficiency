@@ -12,8 +12,10 @@ class ProgressBar:
 
     def finishMessage(self, message, status):
 
-        if status:
+        if status == 1:
             statusMessage = "[✓]"
+        elif status == 0:
+            statusMessage = "[-]"
         else:
             statusMessage = "[⨯]"
 

@@ -43,7 +43,7 @@ class Kadabra(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
-        self.status = True
+        self.status = 1
 
     def toReport(self):
         return f"Kadabra: {len(self.patterns)}\n"
@@ -54,7 +54,7 @@ class Kadabra(Analyzer):
     def extractResults(self):
 
         if not os.path.exists("tools/kadabra/results.json"):
-            self.status = False
+            self.status = -1
             return
 
         shutil.copy2("tools/kadabra/results.json", self.outputPath)
