@@ -4,7 +4,7 @@ import sys
 import polars as pl
 import argparse
 
-from src.ProgressBar import ProgressBar
+from src.ProgressBar.ProgressBar import ProgressBar
 
 from src.Minifiers.ApkMinify import ApkMinify
 
@@ -19,7 +19,7 @@ from src.Analyzers.ADoctor import ADoctor
 from src.Analyzers.Paprika import Paprika
 from src.Analyzers.Relda2 import Relda2
 
-from src.Stats import Stats
+from src.Stats.Stats import Stats
 
 print("")
 t1 = time.time()
