@@ -118,9 +118,9 @@ t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
 
 report = open("output/" + apkName + "/report.txt", "w")
-report.write(f"Category: {category}")
-report.write(f"Size: {apkSize} MB")
-report.write(f"Number of files: {numberOfFiles}")
+report.write(f"Category: {apkCategory}\n")
+report.write(f"Size: {apkSize} MB\n")
+report.write(f"Number of files: {numberOfFiles}\n")
 report.write(androidManifestAnalyzer.toReport())
 report.write(earmo.toReport())
 report.write(kadabra.toReport())
@@ -146,5 +146,4 @@ data["paprika"] = paprika.getResult()
 data["relda2"] = relda2.getResult()
 data_aux = androidManifestAnalyzer.getResult()
 data["activities"], data["permissions"], data["services"], data["providers"] = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
-#data["activities"], data["permissions"], data["services"], data["providers"] = 0, 0, 0, 0
 stats.addData(data)
