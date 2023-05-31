@@ -1,7 +1,1 @@
-App,Category,Time,EARMO,Kadabra,Lint,ADoctor,Paprika,Relda2,Activities,Permissions,Services,Providers
-com.tailscale.ipn_165,Connectivity,80.02744364738464,3,1,0,0,194,0,1,9,6,1
-com.activitymanager_535,Development,155.03854966163635,0,0,0,0,38,0,10,3,1,2
-com.gitlab.ardash.appleflinger.android_1005010,Games,81.41544985771179,10,6,0,0,1,0,1,0,0,0
-com.simplemobiletools.gallery.pro_389,Graphics,1979.7139220237732,426,0,0,0,1700,0,23,10,2,3
-im.quicksy.client_4205504,Internet,1818.6697480678558,534,993,1,0,804,0,35,38,4,3
-stopthefire,Test,17.146788358688354,0,0,0,0,0,0,9,8,4,1
+App,Category,Size,NumberOfFiles,Time,EARMO,Kadabra,Lint,ADoctor,Paprika,Relda2,Activities,Permissions,Services,Providers

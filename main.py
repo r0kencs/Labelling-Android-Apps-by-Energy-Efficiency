@@ -118,6 +118,9 @@ t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
 
 report = open("output/" + apkName + "/report.txt", "w")
+report.write(f"Category: {category}")
+report.write(f"Size: {apkSize} MB")
+report.write(f"Number of files: {numberOfFiles}")
 report.write(androidManifestAnalyzer.toReport())
 report.write(earmo.toReport())
 report.write(kadabra.toReport())
@@ -132,6 +135,8 @@ stats = Stats()
 data = {}
 data["appName"] = apkName
 data["category"] = apkCategory
+data["size"] = apkSize
+data["numberOfFiles"] = numberOfFiles
 data["time"] = t2
 data["earmo"] = earmo.getResult()
 data["kadabra"] = kadabra.getResult()

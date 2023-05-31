@@ -10,6 +10,8 @@ class Stats:
             {
                 "App": [data["appName"]],
                 "Category": [data["category"]],
+                "Size": [data["size"]],
+                "NumberOfFiles": [data["numberOfFiles"]],
                 "Time": [data["time"]],
                 "EARMO": [data["earmo"]],
                 "Kadabra": [data["kadabra"]],
