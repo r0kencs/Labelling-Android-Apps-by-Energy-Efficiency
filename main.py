@@ -41,13 +41,15 @@ progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
 jadx = Jadx(apkPath)
 jadx.decompile()
+numberOfFiles = jadx.getNumberOfFiles()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", jadx.getStatus())
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
 
+apkSize = round(os.path.getsize(apkPath) / 1024**2, 2)
+
 dex2jarOutputPath = "output/" + apkName + "/dex2jar/" + apkName + "-dex2jar.jar"
 jadxOutputPath = "output/" + apkName + "/jadx/"
-
 
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
@@ -57,7 +59,6 @@ if "Earmo" in analyzers:
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", earmo.getStatus())
 progressBar.smoothUpdate(40, "EARMO Analyzing!")
-
 
 progressBar.smoothUpdate(40, "Kadabra Analyzing!")
 task_t1 = time.time()
@@ -94,7 +95,6 @@ if "ADoctor" in analyzers:
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"aDoctor - {task_t2:.2f} s", aDoctor.getStatus())
 progressBar.smoothUpdate(80, "aDoctor Analyzing!")
-
 
 progressBar.smoothUpdate(80, "Paprika Analyzing!")
 task_t1 = time.time()

@@ -45,3 +45,8 @@ class Jadx(Decompiler):
         for path, a, b in all_directories:
             if len(os.listdir(path)) == 0:
                 shutil.rmtree(path)
+
+    def getNumberOfFiles(self):
+        files = glob.glob(f"{self.outputFolder}minified/**/*.java", recursive=True)
+
+        return len(files)
