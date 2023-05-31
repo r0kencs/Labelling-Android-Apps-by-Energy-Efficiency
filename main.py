@@ -2,7 +2,8 @@ import time
 import os
 import sys
 import polars as pl
-import argparse
+
+from src.GreenalizeParser.GreenalizeParser import GreenalizeParser
 
 from src.ProgressBar.ProgressBar import ProgressBar
 
@@ -24,18 +25,16 @@ from src.Stats.Stats import Stats
 print("")
 t1 = time.time()
 
+greenalizeParser = GreenalizeParser()
+
 progressBar = ProgressBar()
 
-parser = argparse.ArgumentParser()
-parser.add_argument("path")
-parser.add_argument("category")
-parser.add_argument("-a", dest="analyzers", nargs="*", help="list of Analyzers to run", type=str, default=["Earmo", "Kadabra", "AndroidManifestAnalyzer", "Lint", "ADoctor", "Paprika", "Relda2"])
-args = parser.parse_args()
+apkPath = greenalizeParser.getApkPath()
+apkName = greenalizeParser.getApkName()
+apkCategory = greenalizeParser.getApkCategory()
+apkSize = round(os.path.getsize(apkPath) / 1024**2, 2)
 
-apkPath = args.path
-apkName = os.path.splitext(os.path.basename(apkPath))[0]
-apkCategory = args.category
-analyzers = args.analyzers
+analyzers = greenalizeParser.getAnalyzers()
 
 progressBar.smoothUpdate(20, "Jadx Decompiling APK!")
 task_t1 = time.time()
@@ -45,8 +44,6 @@ numberOfFiles = jadx.getNumberOfFiles()
 task_t2 = time.time() - task_t1
 progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", jadx.getStatus())
 progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
-
-apkSize = round(os.path.getsize(apkPath) / 1024**2, 2)
 
 dex2jarOutputPath = "output/" + apkName + "/dex2jar/" + apkName + "-dex2jar.jar"
 jadxOutputPath = "output/" + apkName + "/jadx/"
