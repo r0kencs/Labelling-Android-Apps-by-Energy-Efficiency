@@ -74,6 +74,10 @@ class ADoctor(Analyzer):
     def toReport(self):
         return f"aDoctor: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "ADoctor": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
 

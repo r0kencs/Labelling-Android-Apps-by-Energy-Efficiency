@@ -62,6 +62,10 @@ class Lint(Analyzer):
     def toReport(self):
         return f"Lint: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "Lint": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
 

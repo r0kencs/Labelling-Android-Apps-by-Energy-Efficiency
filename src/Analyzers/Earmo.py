@@ -67,6 +67,10 @@ class Earmo(Analyzer):
     def toReport(self):
         return f"EARMO: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "Earmo": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
 

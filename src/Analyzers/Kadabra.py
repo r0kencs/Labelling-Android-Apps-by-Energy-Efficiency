@@ -48,6 +48,10 @@ class Kadabra(Analyzer):
     def toReport(self):
         return f"Kadabra: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "Kadabra": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
 

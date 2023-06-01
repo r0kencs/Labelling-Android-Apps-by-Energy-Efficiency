@@ -23,6 +23,7 @@ from src.Analyzers.Relda2 import Relda2
 from src.AppInfo.AppInfo import AppInfo
 
 from src.Reports.TextReportWriter import TextReportWriter
+from src.Reports.JsonReportWriter import JsonReportWriter
 
 from src.Stats.Stats import Stats
 
@@ -125,7 +126,8 @@ appInfo.setTime(t2)
 textReportWriter = TextReportWriter(appInfo, androidManifestAnalyzer, earmo, kadabra, lint, aDoctor, paprika, relda2)
 textReportWriter.write()
 
-
+jsonReportWriter = JsonReportWriter(appInfo, androidManifestAnalyzer, earmo, kadabra, lint, aDoctor, paprika, relda2)
+jsonReportWriter.write()
 
 stats = Stats()
 data = {}

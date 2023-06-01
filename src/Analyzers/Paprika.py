@@ -65,6 +65,10 @@ class Paprika(Analyzer):
     def toReport(self):
         return f"Paprika: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "Paprika": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
 

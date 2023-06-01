@@ -36,5 +36,9 @@ class Relda2(Analyzer):
     def toReport(self):
         return f"Relda2: {len(self.patterns)}\n"
 
+    def toJson(self):
+        data = { "Relda2": len(self.patterns) }
+        return data
+
     def getResult(self):
         return len(self.patterns)
