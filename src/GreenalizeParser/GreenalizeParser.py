@@ -25,6 +25,8 @@ class GreenalizeParser():
         self.apkName = os.path.splitext(os.path.basename(self.apkPath))[0]
         self.apkCategory = args.category
         self.analyzers = args.analyzers
+        self.forceExecution = args.forceExecution
+        self.updateExecution = args.updateExecution
 
         if os.path.exists(f"output/{self.apkName}/report.json") and not (args.forceExecution or args.updateExecution):
             self.parsingError("Report already exists!")
