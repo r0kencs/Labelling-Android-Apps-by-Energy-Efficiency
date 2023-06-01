@@ -15,7 +15,7 @@ class Jadx(Decompiler):
         stdoutFile = open(f"{self.outputFolder}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputFolder}logs/err.txt", "w+")
 
-        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "jadx", self.apkPath, "-d", self.outputFolder, "-j", "8"], stdout=stdoutFile, stderr=stderrFile)
 
         stdoutFile.close()
         stderrFile.close()
