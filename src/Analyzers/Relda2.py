@@ -24,7 +24,7 @@ class Relda2(Analyzer):
 
         os.chdir("tools/relda2")
 
-        result = subprocess.run(["cmd", "/c", "python2", "Relda2.py", "-f", "-r", f"../../{self.outputPath}", f"../../{self.path}"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "python2", "Relda2.py", "-r", f"../../{self.outputPath}", f"../../{self.path}"], stdout=stdoutFile, stderr=stderrFile)
 
         os.chdir("../..")
 

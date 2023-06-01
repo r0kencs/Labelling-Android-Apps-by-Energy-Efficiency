@@ -20,6 +20,10 @@ from src.Analyzers.ADoctor import ADoctor
 from src.Analyzers.Paprika import Paprika
 from src.Analyzers.Relda2 import Relda2
 
+from src.AppInfo.AppInfo import AppInfo
+
+from src.Reports.TextReportWriter import TextReportWriter
+
 from src.Stats.Stats import Stats
 
 print("")
@@ -47,6 +51,8 @@ progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
 
 dex2jarOutputPath = "output/" + apkName + "/dex2jar/" + apkName + "-dex2jar.jar"
 jadxOutputPath = "output/" + apkName + "/jadx/"
+
+appInfo = AppInfo(apkName, apkCategory, apkSize, numberOfFiles)
 
 progressBar.smoothUpdate(30, "EARMO Analyzing!")
 task_t1 = time.time()
@@ -114,19 +120,12 @@ progressBar.smoothUpdate(100, "Relda2 Analyzing!")
 t2 = time.time() - t1
 print(f"\n\nElapsed time: {t2:.2f} s\n")
 
-report = open("output/" + apkName + "/report.txt", "w")
-report.write(f"Category: {apkCategory}\n")
-report.write(f"Size: {apkSize} MB\n")
-report.write(f"Number of files: {numberOfFiles}\n")
-report.write(androidManifestAnalyzer.toReport())
-report.write(earmo.toReport())
-report.write(kadabra.toReport())
-report.write(lint.toReport())
-report.write(aDoctor.toReport())
-report.write(paprika.toReport())
-report.write(relda2.toReport())
-report.write(f"Analysis time: {t2:.2f} s\n")
-report.close()
+appInfo.setTime(t2)
+
+textReportWriter = TextReportWriter(appInfo, androidManifestAnalyzer, earmo, kadabra, lint, aDoctor, paprika, relda2)
+textReportWriter.write()
+
+
 
 stats = Stats()
 data = {}
