@@ -1,7 +1,12 @@
 import time
 import os
 import sys
+import shutil
 import polars as pl
+
+
+from threading import Thread
+from datetime import datetime
 
 from src.GreenalizeParser.GreenalizeParser import GreenalizeParser
 
@@ -26,6 +31,27 @@ from src.Reports.TextReportWriter import TextReportWriter
 from src.Reports.JsonReportWriter import JsonReportWriter
 
 from src.Stats.Stats import Stats
+
+def threadedTimer(duration):
+    startDate = datetime.now()
+    while True:
+        currentDate = datetime.now()
+        diff = currentDate - startDate
+        #diffInHours = diff.total_seconds() / 3600
+        diffInHours = diff.total_seconds()
+
+        print(f"Time elapsed: {diffInHours}")
+
+        if diffInHours >= duration:
+            print(f"{apkName} is taking too long...")
+            #shutil.rmtree(f"output/{apkName}")
+            os._exit()
+            break
+
+        time.sleep(1)
+
+#thread = Thread(target = threadedTimer, args = (3, ), daemon=True)
+#thread.start()
 
 print("")
 t1 = time.time()

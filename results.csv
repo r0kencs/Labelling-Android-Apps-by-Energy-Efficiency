@@ -1,3 +1,69 @@
-App,Category,Size,NumberOfFiles,Time,EARMO,Kadabra,Lint,ADoctor,Paprika,Relda2,Activities,Permissions,Services,Providers
-stopthefire,Test,4.04,295,24.291282176971436,0,0,0,0,0,0,9,8,4,1
-de.spiritcroc.riotx_40101070,Arroz,108.04,13700,68.25116872787476,0,0,0,0,0,0,65,28,14,9
+App,Category,Time,EARMO,Kadabra,Lint,ADoctor,Paprika,Relda2,Activities,Permissions,Services,Providers
+cat.mvmike.minimalcalendarwidget_64,Theming,272.43735814094543,7,0,0,0,233,0,2,2,0,1
+com.w2sv.wifiwidget_24,Connectivity,486.077073097229,14,0,0,0,3,0,2,10,4,1
+org.smc.inputmethod.indic_103,Writing,771.9554927349091,37,0,0,0,258,0,7,6,3,1
+site.leos.apps.lespas_86,Graphics,2980.5800573825836,292,0,0,0,659,0,5,19,6,4
+sushi.hardcore.droidfs_31,Security,920.4262149333954,46,0,0,0,431,0,13,7,3,2
+org.koitharu.kotatsu_539,Multimedia,1160.3222019672394,65,0,0,0,23,0,26,18,14,5
+org.billthefarmer.scope_134,Multimedia,109.11028456687927,3,0,0,0,15,0,4,1,0,0
+juloo.keyboard2_34,Development,103.2715802192688,1,0,0,0,13,0,2,2,1,0
+com.voklen.daily_diary_8,Writing,151.88333082199097,0,0,0,0,9,0,1,1,0,0
+org.catrobat.paintroid_50,Graphics,423.28786063194275,5,0,0,0,7,0,3,4,0,2
+com.jens.automation2_131,System,1856.73579621315,151,0,3,0,1140,0,46,36,2,2
+org.btcmap_45,Money,502.9937117099762,13,0,0,0,8,0,1,4,0,1
+de.nulide.findmydevice_20,Security,28071.429015874863,1132,0,0,0,1572,0,14,22,7,1
+net.viggers.zade.wallpaper_18,Theming,816.7521183490753,5,0,0,0,0,0,2,0,1,1
+com.tailscale.ipn_165,Connectivity,300.8212866783142,2,0,0,0,194,0,1,9,6,1
+org.ostrya.presencepublisher_50,Connectivity,754.7181298732758,100,0,1,0,4,0,1,15,8,1
+de.salomax.currencies_12000,Money,559.2920451164246,3,0,0,0,4,0,3,2,1,1
+org.godotengine.editor.v4_400014003,Development,504.77770137786865,18,0,0,0,293,0,4,4,1,1
+player.phonograph.plus_530,Multimedia,1882.1662068367004,258,0,0,0,9,0,16,14,1,2
+com.zell_mbc.medilog_5425,Sports and Health,1508.465503692627,0,0,0,0,0,0,26,5,1,2
+io.spaceapi.community.myhackerspace_104,Internet,417.49396562576294,15,0,0,0,67,0,3,3,1,0
+com.sadellie.unitto_20,Science and Education,1108.903175354004,61,0,0,0,2,0,2,2,2,1
+fr.fdesousa.bikesharinghub_30,Navigation,1226.2204353809357,74,0,0,0,530,0,5,7,1,0
+org.woheller69.spritpreise_20,Navigation,1016.8105564117432,25,0,0,0,930,0,6,5,1,1
+tk.hack5.treblecheck_5001001,Development,272.1539103984833,1,0,0,0,1,0,1,1,0,1
+com.nathanatos.Cuppa_35,Time,479.6120994091034,104,0,0,0,4,0,2,5,0,0
+de.ritscher.simplemobiletools.contacts.pro_106,Phone and SMS,1201.4853212833405,248,0,0,0,925,0,12,6,1,3
+org.koreader.launcher.fdroid_97123,Reading,185.7113742828369,0,0,0,0,122,0,3,7,0,1
+uk.openvk.android.legacy_180,Internet,1458.216548204422,240,0,0,0,571,0,17,9,1,0
+com.manimarank.spell4wiki_14,Reading,1774.683408498764,178,0,0,0,1867,0,16,8,2,1
+com.bnyro.translate_31,Science and Education,591.6065738201141,21,0,0,0,12,0,1,3,1,1
+com.kaajjo.libresudoku_7,Games,791.4542274475098,88,0,0,0,2,0,2,1,4,2
+com.activitymanager_535,Development,706.3604643344879,0,0,0,0,38,0,10,3,1,2
+com.foobnix.pro.pdf.reader_5458,Reading,3393.6403646469116,488,0,0,0,0,0,8,8,7,2
+cx.ring_367,Phone and SMS,860.7667214870453,0,0,0,0,750,0,22,22,7,3
+com.thatsmanmeet.taskyapp_15,Time,415.2527184486389,7,0,0,0,1,0,1,5,1,1
+org.jshobbysoft.cameraalign_2,Graphics,275.4813997745514,0,0,0,0,4,0,2,3,1,1
+org.secuso.privacyfriendlydame_4,Games,1134.7477688789368,73,0,0,0,1637,0,7,4,5,0
+com.unciv.app_857,Games,1117.4979391098022,0,0,0,0,1288,0,2,5,4,1
+it.davquar.halfdot_33,Internet,253.61124277114868,3,0,0,0,10,0,2,1,0,0
+rasel.lunar.launcher_29,Theming,269.1712441444397,0,0,0,0,4,0,2,12,2,1
+helium314.localbackend_36,Navigation,341.0886082649231,10,0,0,0,214,0,2,7,2,1
+com.simplemobiletools.gallery.pro_389,Graphics,3820.983324289322,314,0,0,0,0,0,23,10,2,3
+org.localsend.localsend_app_30,Connectivity,481.36589670181274,17,0,0,0,11,0,2,13,1,2
+org.kore.kolabnotes.android_106,Writing,1676.0092196464539,201,0,0,0,567,0,9,10,3,2
+com.android.gpstest.osmdroid_24096,Navigation,5153.378205060959,201,0,0,0,781,0,4,7,1,2
+org.forkgram.messenger_334408,Internet,1405.2888514995575,0,0,4,0,292,0,10,54,17,3
+de.moooon.acrylicons_13,Theming,938.5645439624786,0,0,0,0,0,0,1,1,0,1
+com.gitlab.ardash.appleflinger.android_1005010,Games,201.61816430091858,8,0,0,0,1,0,1,0,0,0
+com.tutpro.baresip_282,Phone and SMS,1169.471953868866,23,0,1,0,1811,0,14,22,1,1
+org.billthefarmer.buses_103,Navigation,432.2697467803955,83,0,0,0,75,0,2,5,0,0
+ru.tech.imageresizershrinker_54,Graphics,670.0479607582092,11,0,0,0,1,0,3,5,2,2
+com.moimob.drinkable_12500,Science and Education,725.3881978988647,2,0,0,0,453,0,1,2,0,2
+kasun.sinhala.keyboard_10,Writing,83.59183883666992,0,0,0,0,1,0,1,1,1,0
+im.quicksy.client_4205504,Internet,3272.7507724761963,534,0,1,0,804,0,35,38,4,3
+com.byagowi.persiancalendar_810,Time,520.8338296413422,18,0,0,0,15,0,4,9,9,2
+it.daniealeverducci.ojo_7,Connectivity,1025.81161570549,14,0,0,0,881,0,2,2,0,1
+it.danieleverducci.ojo_7,Multimedia,1043.7132496833801,14,0,0,0,881,0,2,2,0,1
+com.bagaturchess_138,Sports and Health,422.3276081085205,0,0,0,0,105,0,13,2,0,0
+com.greenaddress.greenbits_android_wallet_22000403,Money,20071.882604837418,634,0,68,0,1505,0,5,16,2,2
+com.standardnotes_3000924,Security,3304.7006933689117,461,0,0,0,0,0,1,8,0,4
+de.storchp.fdroidbuildstatus_49,Development,1813.3394451141357,76,0,0,0,0,0,5,5,1,1
+com.github.meypod.al_azan_61004,Time,2358.2342822551727,477,0,1,0,858,0,3,14,7,2
+com.jithware.brethap_104,Sports and Health,213.75388526916504,0,0,0,0,10,0,2,2,0,0
+name.bresciani.marco.tkcompanionapp_660,Science and Education,1858.039899110794,288,0,0,0,769,0,1,0,0,1
+in.sunilpaulmathew.ashell_8,System,248.32570481300354,0,0,0,0,4,0,3,2,0,2
+org.totschnig.myexpenses_615,Money,2050.5279207229614,0,0,0,0,0,0,41,20,14,6
+stopthefire,Test,145.593980550766,0,0,0,0,427,0,9,8,4,1
