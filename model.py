@@ -4,6 +4,14 @@ df = pl.read_csv("results.csv")
 
 categoryDfs = df.partition_by("Category")
 
+
+df = df.sort("Time", descending=True)
+df = df.with_column(
+        (pl.col('Time') / 60).alias('Time Minutes')
+    )
+print(df)
+
+"""
 for categoryDf in categoryDfs:
     categoryName = pl.first(categoryDf["Category"])
     apps = pl.count(categoryDf["App"])
@@ -51,3 +59,4 @@ for categoryDf in categoryDfs:
     print(f"aDoctor - Sum: {aDoctorSum} Mean: {aDoctorMean:.2f} Max: {aDoctorMax} Min: {aDoctorMin}")
     print(f"Paprika - Sum: {paprikaSum} Mean: {paprikaMean:.2f} Max: {paprikaMax} Min: {paprikaMin}")
     print(f"relda2Sum - Sum: {relda2Sum} Mean: {relda2Mean:.2f} Max: {relda2Max} Min: {relda2Min}")
+"""

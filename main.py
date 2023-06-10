@@ -3,6 +3,7 @@ import os
 import sys
 import shutil
 import polars as pl
+import json
 
 
 from threading import Thread
@@ -45,34 +46,42 @@ def threadedTimer(p, duration):
         if not p.is_alive():
             p.terminate()
             p.join()
-            return
+            return True
 
         if diffInHours >= duration:
             print(f"\n{greenalizeParser.apkName} analysis is taking too long... Aborting!\n")
             if p.is_alive():
                 p.terminate()
             p.join()
-            return
+            return False
 
         time.sleep(1)
 
 def greenalizeTask():
     greenalize.run()
 
-"""
-thread = Thread(target = greenalize.run, daemon=True)
-thread.start()
-
-
-"""
-
 greenalizeParser = GreenalizeParser()
 greenalize = Greenalize(greenalizeParser)
 
 if __name__ == '__main__':
+    blacklistFile = open("blacklist.json", "r")
+    blacklist = json.load(blacklistFile)
+    blacklistFile.close()
+
+    for blacklistItem in blacklist:
+        if blacklistItem["name"] == greenalizeParser.apkName:
+            print("App is blacklisted!")
+            exit()
+
     p = Process(target=greenalizeTask, name="Greenalize Execution")
     p.start()
 
-    threadedTimer(p, 5)
+    if not threadedTimer(p, 5):
+        print(f"Adding {greenalizeParser.apkName} to the blacklist!")
+        blacklistFile = open("blacklist.json", "w")
+        blacklistItem = {"name": greenalizeParser.apkName}
+        blacklist.append(blacklistItem)
+        blacklistFile.write(json.dumps(blacklist))
+        blacklistFile.close()
 
 #greenalize.run()
