@@ -43,4 +43,4 @@ for i, app in enumerate(apps):
     print(f"Analyzing {appName}...")
     print(f"Category: {category}\tStart Time: {currentTime}")
     print(f"[{i+1} of {size}]")
-    result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}", f"{category}"])
+    result = subprocess.run(["cmd", "/c", "python", "main.py", f"{app}", "-c", f"{category}"])
