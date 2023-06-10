@@ -6,6 +6,7 @@ import polars as pl
 
 
 from threading import Thread
+from multiprocessing import Process
 from datetime import datetime
 
 from src.GreenalizeParser.GreenalizeParser import GreenalizeParser
@@ -34,31 +35,44 @@ from src.Stats.Stats import Stats
 
 from src.Greenalize.Greenalize import Greenalize
 
-def threadedTimer(duration):
+def threadedTimer(p, duration):
     startDate = datetime.now()
     while True:
         currentDate = datetime.now()
         diff = currentDate - startDate
         diffInHours = diff.total_seconds() / 3600
 
-        if greenalize.getStatus():
+        if not p.is_alive():
+            p.terminate()
+            p.join()
             return
 
         if diffInHours >= duration:
             print(f"\n{greenalizeParser.apkName} analysis is taking too long... Aborting!\n")
-            exit()
+            if p.is_alive():
+                p.terminate()
+            p.join()
+            return
 
         time.sleep(1)
 
-greenalizeParser = GreenalizeParser()
-
-greenalize = Greenalize(greenalizeParser)
+def greenalizeTask():
+    greenalize.run()
 
 """
 thread = Thread(target = greenalize.run, daemon=True)
 thread.start()
 
-threadedTimer(7)
+
 """
 
-greenalize.run()
+greenalizeParser = GreenalizeParser()
+greenalize = Greenalize(greenalizeParser)
+
+if __name__ == '__main__':
+    p = Process(target=greenalizeTask, name="Greenalize Execution")
+    p.start()
+
+    threadedTimer(p, 5)
+
+#greenalize.run()

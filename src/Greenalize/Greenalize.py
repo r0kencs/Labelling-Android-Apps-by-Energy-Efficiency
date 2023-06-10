@@ -54,6 +54,7 @@ class Greenalize():
         self.loaded = False
 
     def run(self):
+
         self.createFolder()
 
         self.loadResultsDict()
@@ -91,6 +92,7 @@ class Greenalize():
             os.makedirs(f"output/{self.apkName}")
 
     def parseLoad(self, data):
+        self.numberOfFiles = data["files"]
         self.time = data["time"]
 
         self.permissions = data["Permissions"]
