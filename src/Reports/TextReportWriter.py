@@ -7,7 +7,7 @@ class TextReportWriter(ReportWriter):
     def write(self):
         report = open("output/" + self.appInfo.getName() + "/report.txt", "w")
 
-        report.write(f"Category: {self.appInfo.getCategory()}\n")
+        report.write(f"Categories: {self.appInfo.getCategories()}\n")
         report.write(f"Size: {self.appInfo.getSize()} MB\n")
         report.write(f"Number of files: {self.appInfo.getNumberOfFiles()}\n")
 

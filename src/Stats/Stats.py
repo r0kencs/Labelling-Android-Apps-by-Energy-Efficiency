@@ -9,7 +9,7 @@ class Stats:
         df = pl.DataFrame(
             {
                 "App": [data["appName"]],
-                "Category": [data["category"]],
+                "Categories": [data["categories"]],
                 "Size": [data["size"]],
                 "NumberOfFiles": [data["numberOfFiles"]],
                 "Time": [data["time"]],

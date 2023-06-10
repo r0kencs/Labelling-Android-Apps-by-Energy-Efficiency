@@ -7,8 +7,6 @@ class JsonReportWriter(ReportWriter):
         super().__init__(appInfo, analyzers)
 
     def write(self):
-        report = open("output/" + self.appInfo.getName() + "/report.txt", "w")
-
         data = {
             "name": self.appInfo.getName(),
             "size": self.appInfo.getSize(),

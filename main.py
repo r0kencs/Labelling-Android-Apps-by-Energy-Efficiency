@@ -54,7 +54,11 @@ greenalizeParser = GreenalizeParser()
 
 greenalize = Greenalize(greenalizeParser)
 
-thread = Thread(target = greenalize.analyze, daemon=True)
+"""
+thread = Thread(target = greenalize.run, daemon=True)
 thread.start()
 
-threadedTimer(3)
+threadedTimer(7)
+"""
+
+greenalize.run()

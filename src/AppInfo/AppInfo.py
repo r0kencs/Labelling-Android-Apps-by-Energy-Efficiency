@@ -1,15 +1,15 @@
 class AppInfo():
-    def __init__(self, name, category, size, numberOfFiles):
+    def __init__(self, name, categories, size, numberOfFiles):
         self.name = name
-        self.category = category
+        self.categories = categories
         self.size = size
         self.numberOfFiles = numberOfFiles
 
     def getName(self):
         return self.name
 
-    def getCategory(self):
-        return self.category
+    def getCategories(self):
+        return self.categories
 
     def getSize(self):
         return self.size
