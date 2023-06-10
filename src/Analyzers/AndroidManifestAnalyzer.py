@@ -6,6 +6,10 @@ class AndroidManifestAnalyzer(Analyzer):
     def __init__(self, apkName, path):
         super().__init__(apkName, path)
 
+        self.permissions = []
+        self.activities = []
+        self.services = []
+        self.providers = []
 
     def analyze(self):
         permissions = []

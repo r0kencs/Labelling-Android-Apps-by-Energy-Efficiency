@@ -251,7 +251,7 @@ class Greenalize():
 
         progressBar.smoothUpdate(70, "aDoctor Analyzing!")
         task_t1 = time.time()
-        aDoctor = ADoctor(self.apkName, jadxOutputPath)
+        aDoctor = ADoctor(self.apkName, f"{jadxOutputPath}minified")
         if "ADoctor" in analyzers:
             aDoctor.analyze()
         task_t2 = time.time() - task_t1

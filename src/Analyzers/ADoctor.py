@@ -62,7 +62,7 @@ class ADoctor(Analyzer):
         stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
 
-        result = subprocess.run(["cmd", "/c", "java", "-cp", "tools/aDoctor/aDoctor.jar", "it.unisa.aDoctor.process.RunAndroidSmellDetection", self.path, self.outputFile, "111111111111111"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/aDoctor/aDoctor.jar", self.path, self.outputFile, "111111111111111"], stdout=stdoutFile, stderr=stderrFile)
 
         self.extractResults()
 
