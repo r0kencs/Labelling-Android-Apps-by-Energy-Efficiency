@@ -56,11 +56,13 @@ class Earmo(Analyzer):
         os.chdir("tools/earmo")
         result = subprocess.run(["cmd", "/c", "java", "-jar", "RefactoringStandarStudyAndroid.jar", "../../output/" + self.apkName + "/earmo/conf.prop"], stdout=stdoutFile, stderr=stderrFile)
         self.extractResults()
-        self.clean()
+        self.cleanWorkingDir()
         os.chdir("../..")
 
         stdoutFile.close()
         stderrFile.close()
+
+        self.clean()
 
         self.status = 1
 
@@ -105,7 +107,7 @@ class Earmo(Analyzer):
 
         self.patterns = patterns
 
-    def clean(self):
+    def cleanWorkingDir(self):
         otherFiles = [
             "FUN_MOCell",
             "FUN_NSGAII",
@@ -131,6 +133,10 @@ class Earmo(Analyzer):
         for file in otherFiles:
             if os.path.exists(file):
                 os.remove(file)
+
+    def clean(self):
+        if os.path.exists(f"{self.outputPath}/output"):
+            shutil.rmtree(f"{self.outputPath}/output")
 
     def prepare(self):
         f = open("output/" + self.apkName + "/earmo/conf.prop", "w+")

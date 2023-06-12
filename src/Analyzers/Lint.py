@@ -57,6 +57,8 @@ class Lint(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
+        self.clean()
+
         self.status = 1
 
     def toReport(self):
@@ -73,6 +75,13 @@ class Lint(Analyzer):
         shutil.copytree(f"{self.path}minified", f"{self.outputPath}sources")
         shutil.copytree(f"{self.path}resources", f"{self.outputPath}resources")
         shutil.copy2("files/lint.xml", f"{self.outputPath}lint.xml")
+
+    def clean(self):
+        if os.path.exists(f"{self.outputPath}sources"):
+            shutil.rmtree(f"{self.outputPath}sources")
+
+        if os.path.exists(f"{self.outputPath}resources"):
+            shutil.rmtree(f"{self.outputPath}resources")
 
     def extractResults(self):
         patterns = []

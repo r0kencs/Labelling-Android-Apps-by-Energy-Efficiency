@@ -63,10 +63,7 @@ class Greenalize():
         if self.greenalizeParser.getForceExecution():
             stage = GreenalizeStage.FORCE
         elif self.loaded:
-            if self.greenalizeParser.getUpdateExecution():
-                stage = GreenalizeStage.COMPLETE
-            else:
-                stage = GreenalizeStage.FIX_CATEGORIES
+            stage = GreenalizeStage.FIX_CATEGORIES
         else:
             stage = GreenalizeStage.NORMAL
 
@@ -78,10 +75,10 @@ class Greenalize():
             case GreenalizeStage.FIX_CATEGORIES:
                 self.save()
 
-            case GreenalizeStage.COMPLETE:
-                print("Stage COMPLETE!")
             case GreenalizeStage.FORCE:
-                print("Stage FORCE!")
+                self.analyze()
+                self.save()
+
             case _:
                 print("Stage _!")
 
@@ -212,12 +209,14 @@ class Greenalize():
             paprikaLabel = self.computeLabelAux(category, "Paprika", self.paprikaResult)
             relda2Label = self.computeLabelAux(category, "Relda2", self.relda2Result)
 
+            """
             print(f"Earmo Label: {earmoLabel}")
             print(f"Kadabra Label: {kadabraLabel}")
             print(f"Lint Label: {lintLabel}")
             print(f"ADoctor Label: {aDoctorLabel}")
             print(f"Paprika Label: {paprikaLabel}")
             print(f"Relda2 Label: {relda2Label}")
+            """
 
     def analyze(self):
         print("")
@@ -311,6 +310,8 @@ class Greenalize():
         progressBar.finishMessage(f"Relda2 - {task_t2:.2f} s", relda2.getStatus())
         progressBar.smoothUpdate(100, "Relda2 Analyzing!")
         self.relda2Time = task_t2
+
+        jadx.clean()
 
         t2 = time.time() - t1
         print(f"\n\nElapsed time: {t2:.2f} s\n")

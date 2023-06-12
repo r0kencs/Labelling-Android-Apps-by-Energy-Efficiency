@@ -4,6 +4,7 @@ import subprocess
 import os
 import glob
 import polars as pl
+import shutil
 
 from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
 
@@ -60,6 +61,8 @@ class Paprika(Analyzer):
         stdoutFile.close()
         stderrFile.close()
 
+        self.clean()
+
         self.status = 1
 
     def toReport(self):
@@ -71,6 +74,10 @@ class Paprika(Analyzer):
 
     def getResult(self):
         return len(self.patterns)
+
+    def clean(self):
+        if os.path.exists(f"{self.outputPath}/database"):
+            shutil.rmtree(f"{self.outputPath}/database")
 
     def extractResults(self):
         patterns = []

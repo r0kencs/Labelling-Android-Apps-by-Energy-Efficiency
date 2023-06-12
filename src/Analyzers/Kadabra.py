@@ -37,11 +37,13 @@ class Kadabra(Analyzer):
         stdoutFile = open(f"{self.outputPath}logs/out.txt", "w+")
         stderrFile = open(f"{self.outputPath}logs/err.txt", "w+")
 
-        result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/kadabra/kadabra.jar", "tools/kadabra/main.js", "-p", self.path, "-WC", "-APF", "package!", "-o", self.outputPath, "-s", "-X", "-C"], stdout=stdoutFile, stderr=stderrFile)
+        result = subprocess.run(["cmd", "/c", "java", "-jar", "tools/kadabra/kadabra.jar", "tools/kadabra/main.js", "-p", self.path, "-WC", "-APF", "package!", "-o", f"{self.outputPath}/output", "-s", "-X", "-C"], stdout=stdoutFile, stderr=stderrFile)
         self.extractResults()
 
         stdoutFile.close()
         stderrFile.close()
+
+        self.clean()
 
         self.status = 1
 
@@ -54,6 +56,10 @@ class Kadabra(Analyzer):
 
     def getResult(self):
         return len(self.patterns)
+
+    def clean(self):
+        if os.path.exists(f"{self.outputPath}/output"):
+            shutil.rmtree(f"{self.outputPath}/output")
 
     def extractResults(self):
 
