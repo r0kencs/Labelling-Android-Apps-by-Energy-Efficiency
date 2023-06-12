@@ -4,26 +4,18 @@ df = pl.read_csv("results.csv")
 
 categoryDfs = df.partition_by("Category")
 
-
-df = df.sort("Time", descending=True)
-df = df.with_column(
-        (pl.col('Time') / 60).alias('Time Minutes')
-    )
-print(df)
-
-"""
 for categoryDf in categoryDfs:
     categoryName = pl.first(categoryDf["Category"])
-    apps = pl.count(categoryDf["App"])
+    apps = pl.count(categoryDf["Name"])
 
     max = categoryDf.max()
     min = categoryDf.min()
 
-    categoryDf.sort("EARMO")
-    earmoSum = pl.sum(categoryDf.get_column("EARMO"))
-    earmoMean = earmoSum / apps
-    earmoMax = max.select(pl.col("EARMO")).item()
-    earmoMin = min.select(pl.col("EARMO")).item()
+    categoryDf.sort("Earmo")
+    EarmoSum = pl.sum(categoryDf.get_column("Earmo"))
+    EarmoMean = EarmoSum / apps
+    EarmoMax = max.select(pl.col("Earmo")).item()
+    EarmoMin = min.select(pl.col("Earmo")).item()
 
     kadabraSum = pl.sum(categoryDf.get_column("Kadabra"))
     kadabraMean = kadabraSum / apps
@@ -53,10 +45,9 @@ for categoryDf in categoryDfs:
 
     print(f"\n-------------------- {categoryName} ----------------------")
     print(f"Apps: {apps}")
-    print(f"Earmo - Sum: {earmoSum} Mean: {earmoMean:.2f} Max: {earmoMax} Min: {earmoMin}")
+    print(f"Earmo - Sum: {EarmoSum} Mean: {EarmoMean:.2f} Max: {EarmoMax} Min: {EarmoMin}")
     print(f"Kadabra - Sum: {kadabraSum} Mean: {kadabraMean:.2f} Max: {kadabraMax} Min: {kadabraMin}")
     print(f"lintSum - Sum: {lintSum} Mean: {lintMean:.2f} Max: {lintMax} Min: {lintMin}")
     print(f"aDoctor - Sum: {aDoctorSum} Mean: {aDoctorMean:.2f} Max: {aDoctorMax} Min: {aDoctorMin}")
     print(f"Paprika - Sum: {paprikaSum} Mean: {paprikaMean:.2f} Max: {paprikaMax} Min: {paprikaMin}")
     print(f"relda2Sum - Sum: {relda2Sum} Mean: {relda2Mean:.2f} Max: {relda2Max} Min: {relda2Min}")
-"""

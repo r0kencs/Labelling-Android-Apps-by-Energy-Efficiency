@@ -5,7 +5,6 @@ import shutil
 import polars as pl
 import json
 
-
 from threading import Thread
 from multiprocessing import Process
 from datetime import datetime
@@ -76,7 +75,7 @@ if __name__ == '__main__':
     p = Process(target=greenalizeTask, name="Greenalize Execution")
     p.start()
 
-    if not threadedTimer(p, 5):
+    if not threadedTimer(p, 2):
         print(f"Adding {greenalizeParser.apkName} to the blacklist!")
         blacklistFile = open("blacklist.json", "w")
         blacklistItem = {"name": greenalizeParser.apkName}
