@@ -85,6 +85,8 @@ class Greenalize():
             case _:
                 print("Stage _!")
 
+        self.computeLabel()
+
         self.status = True
 
     def createFolder(self):
@@ -185,6 +187,37 @@ class Greenalize():
         allResults.write(json.dumps(self.resultsDict))
         allResults.close()
 
+    def decideLabel(self, value, thresholds):
+        for i, threshold in enumerate(thresholds):
+            if value < threshold:
+                return len(thresholds)-i+1
+
+        return 1
+
+    def computeLabelAux(self, category, tool, result):
+        f = open(f"thresholds/{category}_{tool}.json")
+        data = json.load(f)
+        f.close()
+        thresholds = data["thresholds"]
+        label = self.decideLabel(result, thresholds)
+
+        return label
+
+    def computeLabel(self):
+        for category in self.apkCategories:
+            earmoLabel = self.computeLabelAux(category, "Earmo", self.earmoResult)
+            kadabraLabel = self.computeLabelAux(category, "Kadabra", self.kadabraResult)
+            lintLabel = self.computeLabelAux(category, "Lint", self.lintResult)
+            aDoctorLabel = self.computeLabelAux(category, "ADoctor", self.aDoctorResult)
+            paprikaLabel = self.computeLabelAux(category, "Paprika", self.paprikaResult)
+            relda2Label = self.computeLabelAux(category, "Relda2", self.relda2Result)
+
+            print(f"Earmo Label: {earmoLabel}")
+            print(f"Kadabra Label: {kadabraLabel}")
+            print(f"Lint Label: {lintLabel}")
+            print(f"ADoctor Label: {aDoctorLabel}")
+            print(f"Paprika Label: {paprikaLabel}")
+            print(f"Relda2 Label: {relda2Label}")
 
     def analyze(self):
         print("")
