@@ -3,6 +3,9 @@ from src.Analyzers.Analyzer import Analyzer
 import subprocess
 import os
 
+from src.EnergyAntiPatterns.EnergyAntiPattern import EnergyAntiPattern
+
+from src.EnergyAntiPatterns.ResourceLeak import ResourceLeak
 
 class Relda2(Analyzer):
     def __init__(self, apkName, path):
@@ -28,6 +31,8 @@ class Relda2(Analyzer):
 
         os.chdir("../..")
 
+        self.extractResults()
+
         stdoutFile.close()
         stderrFile.close()
 
@@ -42,3 +47,24 @@ class Relda2(Analyzer):
 
     def getResult(self):
         return len(self.patterns)
+
+    def extractResults(self):
+        f = open(f"{self.outputPath}{self.apkName}", "r")
+        lines = f.readlines()
+        f.close()
+
+        totalLeaks = 0
+        for line in lines:
+            if len(line) > 1:
+                aux = line.rstrip().split(" has ")
+                if len(aux) == 2:
+                    leaksText = aux[1]
+                    leaks = int(leaksText.replace(" resource leak(s)", ""))
+                    totalLeaks = totalLeaks + leaks
+
+        patterns = []
+        for i in range(totalLeaks):
+            pattern = ResourceLeak()
+            patterns.append(pattern)
+
+        self.patterns = patterns
