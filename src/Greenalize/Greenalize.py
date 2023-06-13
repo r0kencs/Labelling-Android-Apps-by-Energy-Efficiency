@@ -91,27 +91,28 @@ class Greenalize():
             os.makedirs(f"output/{self.apkName}")
 
     def parseLoad(self, data):
-        self.numberOfFiles = data["files"]
-        self.time = data["time"]
+        self.numberOfFiles = data.get("files")
+        self.sizeOfFiles = data.get("filesSize")
+        self.time = data.get("time")
 
-        self.permissions = data["Permissions"]
-        self.activities = data["Activities"]
-        self.services = data["Services"]
-        self.providers = data["Providers"]
-        self.androidManifestAnalyzerTime = data["AndroidManifestAnalyzerTime"]
+        self.permissions = data.get("Permissions")
+        self.activities = data.get("Activities")
+        self.services = data.get("Services")
+        self.providers = data.get("Providers")
+        self.androidManifestAnalyzerTime = data.get("AndroidManifestAnalyzerTime")
 
-        self.earmoResult = data["Earmo"]
-        self.earmoTime = data["EarmoTime"]
-        self.kadabraResult = data["Kadabra"]
-        self.kadabraTime = data["KadabraTime"]
-        self.lintResult = data["Lint"]
-        self.lintTime = data["LintTime"]
-        self.aDoctorResult = data["ADoctor"]
-        self.aDoctorTime = data["ADoctorTime"]
-        self.paprikaResult = data["Paprika"]
-        self.paprikaTime = data["PaprikaTime"]
-        self.relda2Result = data["Relda2"]
-        self.relda2Time = data["Relda2Time"]
+        self.earmoResult = data.get("Earmo")
+        self.earmoTime = data.get("EarmoTime")
+        self.kadabraResult = data.get("Kadabra")
+        self.kadabraTime = data.get("KadabraTime")
+        self.lintResult = data.get("Lint")
+        self.lintTime = data.get("LintTime")
+        self.aDoctorResult = data.get("ADoctor")
+        self.aDoctorTime = data.get("ADoctorTime")
+        self.paprikaResult = data.get("Paprika")
+        self.paprikaTime = data.get("PaprikaTime")
+        self.relda2Result = data.get("Relda2")
+        self.relda2Time = data.get("Relda2Time")
 
         s = set(data["categories"])
         temp = [x for x in self.apkCategories if x not in s]
@@ -151,6 +152,7 @@ class Greenalize():
             "size": self.apkSize,
             "categories": self.apkCategories,
             "files": self.numberOfFiles,
+            "filesSize": self.sizeOfFiles,
             "time": self.time,
             "Permissions": self.permissions,
             "Activities": self.activities,
@@ -186,8 +188,8 @@ class Greenalize():
 
     def decideLabel(self, value, thresholds):
         for i, threshold in enumerate(thresholds):
-            if value < threshold:
-                return len(thresholds)-i+1
+            if value <= threshold:
+                return len(thresholds)-i
 
         return 1
 
@@ -209,14 +211,13 @@ class Greenalize():
             paprikaLabel = self.computeLabelAux(category, "Paprika", self.paprikaResult)
             relda2Label = self.computeLabelAux(category, "Relda2", self.relda2Result)
 
-            """
+            print(f"------------ {category} ------------")
             print(f"Earmo Label: {earmoLabel}")
             print(f"Kadabra Label: {kadabraLabel}")
             print(f"Lint Label: {lintLabel}")
             print(f"ADoctor Label: {aDoctorLabel}")
             print(f"Paprika Label: {paprikaLabel}")
             print(f"Relda2 Label: {relda2Label}")
-            """
 
     def analyze(self):
         print("")
@@ -231,6 +232,8 @@ class Greenalize():
         jadx = Jadx(self.apkPath)
         jadx.decompile()
         self.numberOfFiles = jadx.getNumberOfFiles()
+        self.sizeOfFiles = jadx.getSizeOfFiles()
+        print(self.sizeOfFiles)
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", jadx.getStatus())
         progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")

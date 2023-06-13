@@ -3,6 +3,8 @@ import os
 import shutil
 import glob
 
+from pathlib import Path
+
 from src.Decompilers.Decompiler import Decompiler
 
 class Jadx(Decompiler):
@@ -60,3 +62,11 @@ class Jadx(Decompiler):
         files = glob.glob(f"{self.outputFolder}minified/**/*.java", recursive=True)
 
         return len(files)
+
+    def getSizeOfFiles(self):
+        rootDir = Path(f"{self.outputFolder}minified/")
+        filesSize = sum(f.stat().st_size for f in rootDir.glob("**/*.java") if f.is_file())
+        filesSizeMB = round(filesSize / 1024**2, 2)
+        print(f"{filesSize} - {filesSizeMB}")
+
+        return filesSizeMB
