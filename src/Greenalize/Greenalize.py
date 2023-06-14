@@ -70,19 +70,20 @@ class Greenalize():
         match stage:
             case GreenalizeStage.NORMAL:
                 self.analyze()
+                self.computeLabel()
                 self.save()
 
             case GreenalizeStage.FIX_CATEGORIES:
+                self.computeLabel()
                 self.save()
 
             case GreenalizeStage.FORCE:
                 self.analyze()
+                self.computeLabel()
                 self.save()
 
             case _:
                 print("Stage _!")
-
-        self.computeLabel()
 
         self.status = True
 
@@ -113,6 +114,8 @@ class Greenalize():
         self.paprikaTime = data.get("PaprikaTime")
         self.relda2Result = data.get("Relda2")
         self.relda2Time = data.get("Relda2Time")
+
+        self.classifications = data.get("Classifications")
 
         s = set(data["categories"])
         temp = [x for x in self.apkCategories if x not in s]
@@ -170,7 +173,8 @@ class Greenalize():
             "Paprika": self.paprikaResult,
             "PaprikaTime": self.paprikaTime,
             "Relda2": self.relda2Result,
-            "Relda2Time": self.relda2Time
+            "Relda2Time": self.relda2Time,
+            "Classifications": self.classifications
         }
 
         report = open("output/" + self.apkName + "/report.json", "w")
@@ -203,21 +207,37 @@ class Greenalize():
         return label
 
     def computeLabel(self):
+        classifications = []
+
         for category in self.apkCategories:
-            earmoLabel = self.computeLabelAux(category, "Earmo", self.earmoResult)
-            kadabraLabel = self.computeLabelAux(category, "Kadabra", self.kadabraResult)
-            lintLabel = self.computeLabelAux(category, "Lint", self.lintResult)
-            aDoctorLabel = self.computeLabelAux(category, "ADoctor", self.aDoctorResult)
-            paprikaLabel = self.computeLabelAux(category, "Paprika", self.paprikaResult)
-            relda2Label = self.computeLabelAux(category, "Relda2", self.relda2Result)
+            earmoClassification = self.computeLabelAux(category, "Earmo", self.earmoResult)
+            kadabraClassification = self.computeLabelAux(category, "Kadabra", self.kadabraResult)
+            lintClassification = self.computeLabelAux(category, "Lint", self.lintResult)
+            aDoctorClassification = self.computeLabelAux(category, "ADoctor", self.aDoctorResult)
+            paprikaClassification = self.computeLabelAux(category, "Paprika", self.paprikaResult)
+            Relda2Classification = self.computeLabelAux(category, "Relda2", self.relda2Result)
 
             print(f"------------ {category} ------------")
-            print(f"Earmo Label: {earmoLabel}")
-            print(f"Kadabra Label: {kadabraLabel}")
-            print(f"Lint Label: {lintLabel}")
-            print(f"ADoctor Label: {aDoctorLabel}")
-            print(f"Paprika Label: {paprikaLabel}")
-            print(f"Relda2 Label: {relda2Label}")
+            print(f"Earmo Label: {earmoClassification}")
+            print(f"Kadabra Label: {kadabraClassification}")
+            print(f"Lint Label: {lintClassification}")
+            print(f"ADoctor Label: {aDoctorClassification}")
+            print(f"Paprika Label: {paprikaClassification}")
+            print(f"Relda2 Label: {Relda2Classification}")
+
+            categoryClassifications = {
+                "Category": category,
+                "EarmoClassification": earmoClassification,
+                "KadabraClassification": kadabraClassification,
+                "LintClassification": lintClassification,
+                "ADoctorClassification": aDoctorClassification,
+                "PaprikaClassification": paprikaClassification,
+                "Relda2Classification": Relda2Classification
+            }
+
+            classifications.append(categoryClassifications)
+
+        self.classifications = classifications
 
     def analyze(self):
         print("")
