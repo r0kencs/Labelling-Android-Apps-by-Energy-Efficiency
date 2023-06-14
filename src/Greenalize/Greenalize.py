@@ -272,7 +272,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"EARMO - {task_t2:.2f} s", earmo.getStatus())
         progressBar.smoothUpdate(40, "EARMO Analyzing!")
-        self.earmoTime = task_t2
+        if "Earmo" in analyzers:
+            self.earmoTime = task_t2
 
         progressBar.smoothUpdate(40, "Kadabra Analyzing!")
         task_t1 = time.time()
@@ -282,7 +283,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Kadabra - {task_t2:.2f} s", kadabra.getStatus())
         progressBar.smoothUpdate(50, "Kadabra Analyzing!")
-        self.kadabraTime = task_t2
+        if "Kadabra" in analyzers:
+            self.kadabraTime = task_t2
 
         progressBar.smoothUpdate(50, "AndroidManifestAnalyzer Analyzing!")
         task_t1 = time.time()
@@ -292,7 +294,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"AndroidManifestAnalyzer - {task_t2:.2f} s", androidManifestAnalyzer.getStatus())
         progressBar.smoothUpdate(60, "AndroidManifestAnalyzer Analyzing!")
-        self.androidManifestAnalyzerTime = task_t2
+        if "AndroidManifestAnalyzer" in analyzers:
+            self.androidManifestAnalyzerTime = task_t2
 
         progressBar.smoothUpdate(60, "Lint Analyzing!")
         task_t1 = time.time()
@@ -302,7 +305,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Lint - {task_t2:.2f} s", lint.getStatus())
         progressBar.smoothUpdate(70, "Lint Analyzing!")
-        self.lintTime = task_t2
+        if "Lint" in analyzers:
+            self.lintTime = task_t2
 
         progressBar.smoothUpdate(70, "aDoctor Analyzing!")
         task_t1 = time.time()
@@ -312,7 +316,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"aDoctor - {task_t2:.2f} s", aDoctor.getStatus())
         progressBar.smoothUpdate(80, "aDoctor Analyzing!")
-        self.aDoctorTime = task_t2
+        if "ADoctor" in analyzers:
+            self.aDoctorTime = task_t2
 
         progressBar.smoothUpdate(80, "Paprika Analyzing!")
         task_t1 = time.time()
@@ -322,7 +327,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Paprika - {task_t2:.2f} s", paprika.getStatus())
         progressBar.smoothUpdate(90, "Paprika Analyzing!")
-        self.paprikaTime = task_t2
+        if "Paprika" in analyzers:
+            self.paprikaTime = task_t2
 
         progressBar.smoothUpdate(90, "Relda2 Analyzing!")
         task_t1 = time.time()
@@ -332,7 +338,8 @@ class Greenalize():
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Relda2 - {task_t2:.2f} s", relda2.getStatus())
         progressBar.smoothUpdate(100, "Relda2 Analyzing!")
-        self.relda2Time = task_t2
+        if "Relda2" in analyzers:
+            self.relda2Time = task_t2
 
         jadx.clean()
 
