@@ -347,7 +347,9 @@ class Greenalize():
         print(f"\n\nElapsed time: {t2:.2f} s\n")
 
         appInfo.setTime(t2)
-        self.time = t2
+
+        if analyzers == ["Earmo", "Kadabra", "AndroidManifestAnalyzer", "Lint", "ADoctor", "Paprika", "Relda2"]:
+            self.time = t2
 
         if "Earmo" in analyzers:
             self.earmoResult = earmo.getResult()
