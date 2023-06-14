@@ -349,15 +349,27 @@ class Greenalize():
         appInfo.setTime(t2)
         self.time = t2
 
-        self.earmoResult = earmo.getResult()
-        self.kadabraResult = kadabra.getResult()
-        self.lintResult = lint.getResult()
-        self.aDoctorResult = aDoctor.getResult()
-        self.paprikaResult = paprika.getResult()
-        self.relda2Result = relda2.getResult()
+        if "Earmo" in analyzers:
+            self.earmoResult = earmo.getResult()
 
-        data_aux = androidManifestAnalyzer.getResult()
-        self.activities, self.permissions, self.services, self.providers = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
+        if "Kadabra" in analyzers:
+            self.kadabraResult = kadabra.getResult()
+
+        if "Lint" in analyzers:
+            self.lintResult = lint.getResult()
+
+        if "ADoctor" in analyzers:
+            self.aDoctorResult = aDoctor.getResult()
+
+        if "Paprika" in analyzers:
+            self.paprikaResult = paprika.getResult()
+
+        if "Relda2" in analyzers:
+            self.relda2Result = relda2.getResult()
+
+        if "AndroidManifestAnalyzer" in analyzers:
+            data_aux = androidManifestAnalyzer.getResult()
+            self.activities, self.permissions, self.services, self.providers = data_aux["activities"], data_aux["permissions"], data_aux["services"], data_aux["providers"]
 
         textReportWriter = TextReportWriter(appInfo, androidManifestAnalyzer, earmo, kadabra, lint, aDoctor, paprika, relda2)
         textReportWriter.write()
