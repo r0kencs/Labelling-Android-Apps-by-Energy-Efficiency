@@ -141,7 +141,7 @@ for i, app in enumerate(apps):
     if not getData(appName):
         continue
 
-    result = subprocess.run(["cmd", "/c", "python", "main.py", f"testApks/{appName}.apk", "-c", f"{category}"])
+    result = subprocess.run(["cmd", "/c", "python", "main.py", f"testApks/{appName}.apk", "-c", f"{category}", "-a", "Relda2", "-f"])
 
     print(f"Deleting Apk...")
     os.remove(f"testApks/{appName}.apk")
