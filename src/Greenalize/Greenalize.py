@@ -274,7 +274,6 @@ class Greenalize():
         jadx.decompile()
         self.numberOfFiles = jadx.getNumberOfFiles()
         self.sizeOfFiles = jadx.getSizeOfFiles()
-        print(self.sizeOfFiles)
         task_t2 = time.time() - task_t1
         progressBar.finishMessage(f"Jadx - {task_t2:.2f} s", jadx.getStatus())
         progressBar.smoothUpdate(30, "Jadx Decompiling APK!!")
