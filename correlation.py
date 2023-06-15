@@ -7,6 +7,8 @@ from scipy.stats import pearsonr
 
 data = pd.read_csv("results.csv")
 
+data.dropna()
+
 data = data.drop(labels=["Name", "Category"], axis=1)
 
 corr_mat = data.corr().round(2)

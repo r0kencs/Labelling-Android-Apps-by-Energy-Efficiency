@@ -1,4 +1,5 @@
 import polars as pl
+import numpy as np
 import json
 
 df = pl.read_csv("results.csv")
@@ -29,21 +30,35 @@ def objectListToList(list, key):
         finalList.append(val)
     return finalList
 
+def reject_outliers(data, m = 2.):
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d/mdev if mdev else np.zeros(len(d))
+    return data[s<m]
+
 def modelTool(categoryDf, categoryName, min, max, tool):
 
     categoryDf.sort(tool)
-    sum = pl.sum(categoryDf.get_column(tool))
-    mean = sum / apps
-    max = max.select(pl.col(tool)).item()
-    min = min.select(pl.col(tool)).item()
+    #sum = pl.sum(categoryDf.get_column(tool))
+    #mean = sum / apps
+    #max = max.select(pl.col(tool)).item()
+    #min = min.select(pl.col(tool)).item()
+    #median = pl.median(df[tool])
 
-    categoryDf = categoryDf.sort(tool)
-    l = objectListToList(categoryDf.select(tool).rows(named=True), tool)
-    thresholds = makeThresholds(5, mean)
+    values = np.array(df[tool].to_list())
+
+    #print(f"------------ {tool} ------------")
+    #print(f"Min: {values.min()} Max: {values.max()} Mean: {values.mean()} Median: {np.median(values)}")
+
+    newL = reject_outliers(np.array(df[tool].to_list()))
+    #print(f"Min: {newL.min()} Max: {newL.max()} Mean: {newL.mean()}")
+
+    thresholds = makeThresholds(5, newL.mean())
     f = open(f"thresholds/{categoryName}_{tool}.json", "w")
     data = {"thresholds": thresholds}
     f.write(json.dumps(data))
     f.close()
+
 
 for categoryDf in categoryDfs:
     categoryName = pl.first(categoryDf["Category"])
