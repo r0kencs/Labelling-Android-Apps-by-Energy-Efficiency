@@ -36,9 +36,17 @@ def reject_outliers(data, m = 2.):
     s = d/mdev if mdev else np.zeros(len(d))
     return data[s<m]
 
-df = df.with_columns((((pl.col("EarmoClassification") + pl.col("KadabraClassification") + pl.col("LintClassification") + pl.col("ADoctorClassification") + pl.col("PaprikaClassification") + pl.col("Relda2Classification")) / 6).round(2)).alias("FinalClassification"))
+df = df.with_columns((((pl.col("EarmoClassification") + pl.col("KadabraClassification") + pl.col("LintClassification") + pl.col("ADoctorClassification") + pl.col("PaprikaClassification") + pl.col("Relda2Classification")) / 6)).alias("FinalClassification"))
 
-values = np.array(df["FinalClassification"].to_list())
+appDfs = df.partition_by("Name")
+
+fcValues = []
+for appDf in appDfs:
+    appFinalClassifications = np.array(appDf["FinalClassification"].to_list())
+    appFinalClassification = round(appFinalClassifications.mean(), 2)
+    fcValues.append(appFinalClassification)
+
+values = np.array(fcValues)
 
 #print(f"Min: {values.min()} Max: {values.max()} Mean: {values.mean()} Median: {np.median(values)}")
 
