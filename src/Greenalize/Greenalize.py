@@ -3,6 +3,7 @@ import os
 import sys
 import shutil
 import polars as pl
+import numpy as np
 from enum import Enum
 
 from threading import Thread
@@ -70,15 +71,18 @@ class Greenalize():
         match stage:
             case GreenalizeStage.NORMAL:
                 self.analyze()
+                self.computeClassifications()
                 self.computeLabel()
                 self.save()
 
             case GreenalizeStage.FIX_CATEGORIES:
+                self.computeClassifications()
                 self.computeLabel()
                 self.save()
 
             case GreenalizeStage.FORCE:
                 self.analyze()
+                self.computeClassifications()
                 self.computeLabel()
                 self.save()
 
@@ -116,6 +120,7 @@ class Greenalize():
         self.relda2Time = data.get("Relda2Time")
 
         self.classifications = data.get("Classifications")
+        self.label = data.get("Label")
 
         s = set(data["categories"])
         temp = [x for x in self.apkCategories if x not in s]
@@ -174,7 +179,8 @@ class Greenalize():
             "PaprikaTime": self.paprikaTime,
             "Relda2": self.relda2Result,
             "Relda2Time": self.relda2Time,
-            "Classifications": self.classifications
+            "Classifications": self.classifications,
+            "Label": self.label
         }
 
         report = open("output/" + self.apkName + "/report.json", "w")
@@ -190,40 +196,32 @@ class Greenalize():
         allResults.write(json.dumps(self.resultsDict))
         allResults.close()
 
-    def decideLabel(self, value, thresholds):
+    def decideClassification(self, value, thresholds):
         for i, threshold in enumerate(thresholds):
             if value <= threshold:
                 return len(thresholds)-i
 
         return 1
 
-    def computeLabelAux(self, category, tool, result):
+    def computeClassificationsAux(self, category, tool, result):
         f = open(f"thresholds/{category}_{tool}.json")
         data = json.load(f)
         f.close()
         thresholds = data["thresholds"]
-        label = self.decideLabel(result, thresholds)
+        classification = self.decideClassification(result, thresholds)
 
-        return label
+        return classification
 
-    def computeLabel(self):
+    def computeClassifications(self):
         classifications = []
 
         for category in self.apkCategories:
-            earmoClassification = self.computeLabelAux(category, "Earmo", self.earmoResult)
-            kadabraClassification = self.computeLabelAux(category, "Kadabra", self.kadabraResult)
-            lintClassification = self.computeLabelAux(category, "Lint", self.lintResult)
-            aDoctorClassification = self.computeLabelAux(category, "ADoctor", self.aDoctorResult)
-            paprikaClassification = self.computeLabelAux(category, "Paprika", self.paprikaResult)
-            Relda2Classification = self.computeLabelAux(category, "Relda2", self.relda2Result)
-
-            print(f"------------ {category} ------------")
-            print(f"Earmo Label: {earmoClassification}")
-            print(f"Kadabra Label: {kadabraClassification}")
-            print(f"Lint Label: {lintClassification}")
-            print(f"ADoctor Label: {aDoctorClassification}")
-            print(f"Paprika Label: {paprikaClassification}")
-            print(f"Relda2 Label: {Relda2Classification}")
+            earmoClassification = self.computeClassificationsAux(category, "Earmo", self.earmoResult)
+            kadabraClassification = self.computeClassificationsAux(category, "Kadabra", self.kadabraResult)
+            lintClassification = self.computeClassificationsAux(category, "Lint", self.lintResult)
+            aDoctorClassification = self.computeClassificationsAux(category, "ADoctor", self.aDoctorResult)
+            paprikaClassification = self.computeClassificationsAux(category, "Paprika", self.paprikaResult)
+            Relda2Classification = self.computeClassificationsAux(category, "Relda2", self.relda2Result)
 
             categoryClassifications = {
                 "Category": category,
@@ -238,6 +236,29 @@ class Greenalize():
             classifications.append(categoryClassifications)
 
         self.classifications = classifications
+
+    def computeLabel(self):
+        f = open(f"thresholds/labels.json")
+        data = json.load(f)
+        f.close()
+        thresholds = data["thresholds"]
+
+        c = []
+        for classifications in self.classifications:
+            c.append(classifications["EarmoClassification"])
+            c.append(classifications["KadabraClassification"])
+            c.append(classifications["LintClassification"])
+            c.append(classifications["ADoctorClassification"])
+            c.append(classifications["PaprikaClassification"])
+            c.append(classifications["Relda2Classification"])
+
+        value = np.array(c).mean()
+
+        classification = self.decideClassification(value, thresholds)
+
+        labels = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G" }
+
+        self.label = labels.get(classification)
 
     def analyze(self):
         print("")
