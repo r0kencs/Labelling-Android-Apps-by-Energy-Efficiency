@@ -50,7 +50,7 @@ def modelTool(categoryDf, categoryName, min, max, tool):
     #print(f"------------ {tool} ------------")
     #print(f"Min: {values.min()} Max: {values.max()} Mean: {values.mean()} Median: {np.median(values)}")
 
-    newL = reject_outliers(np.array(df[tool].to_list()))
+    newL = reject_outliers(values)
     #print(f"Min: {newL.min()} Max: {newL.max()} Mean: {newL.mean()}")
 
     thresholds = makeThresholds(5, newL.mean())

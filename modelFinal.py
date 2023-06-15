@@ -1,4 +1,5 @@
 import polars as pl
+import numpy as np
 import json
 
 df = pl.read_csv("results.csv")
@@ -29,23 +30,19 @@ def objectListToList(list, key):
         finalList.append(val)
     return finalList
 
+def reject_outliers(data, m = 2.):
+    d = np.abs(data - np.median(data))
+    mdev = np.median(d)
+    s = d/mdev if mdev else np.zeros(len(d))
+    return data[s<m]
+
 df = df.with_columns((((pl.col("EarmoClassification") + pl.col("KadabraClassification") + pl.col("LintClassification") + pl.col("ADoctorClassification") + pl.col("PaprikaClassification") + pl.col("Relda2Classification")) / 6).round(2)).alias("FinalClassification"))
 
-apps = pl.count(df["Name"])
+values = np.array(df["FinalClassification"].to_list())
 
-max = df.max()
-min = df.min()
+#print(f"Min: {values.min()} Max: {values.max()} Mean: {values.mean()} Median: {np.median(values)}")
 
-sum = pl.sum(df.get_column("FinalClassification"))
-min = min.select(pl.col("FinalClassification")).item()
-max = max.select(pl.col("FinalClassification")).item()
-mean = sum / apps
-
-#print(f"Mean: {mean}")
-#print(f"Min: {min}")
-#print(f"Max: {max}")
-
-thresholds = makeThresholds(7, mean-1)
+thresholds = makeThresholds(7, values.mean()-1)
 
 f = open(f"thresholds/labels.json", "w")
 data = {"thresholds": thresholds}
