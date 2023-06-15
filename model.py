@@ -38,14 +38,14 @@ def reject_outliers(data, m = 2.):
 
 def modelTool(categoryDf, categoryName, min, max, tool):
 
-    categoryDf.sort(tool)
+    #categoryDf.sort(tool)
     #sum = pl.sum(categoryDf.get_column(tool))
     #mean = sum / apps
     #max = max.select(pl.col(tool)).item()
     #min = min.select(pl.col(tool)).item()
     #median = pl.median(df[tool])
 
-    values = np.array(df[tool].to_list())
+    values = np.array(categoryDf[tool].to_list())
 
     #print(f"------------ {tool} ------------")
     #print(f"Min: {values.min()} Max: {values.max()} Mean: {values.mean()} Median: {np.median(values)}")
