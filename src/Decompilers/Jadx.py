@@ -67,6 +67,5 @@ class Jadx(Decompiler):
         rootDir = Path(f"{self.outputFolder}minified/")
         filesSize = sum(f.stat().st_size for f in rootDir.glob("**/*.java") if f.is_file())
         filesSizeMB = round(filesSize / 1024**2, 2)
-        print(f"{filesSize} - {filesSizeMB}")
 
         return filesSizeMB
