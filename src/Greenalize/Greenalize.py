@@ -376,22 +376,5 @@ class Greenalize():
         textReportWriter = TextReportWriter(appInfo, androidManifestAnalyzer, earmo, kadabra, lint, aDoctor, paprika, relda2)
         textReportWriter.write()
 
-    def writeStats(self):
-        stats = Stats()
-        data = {}
-        data["appName"] = self.apkName
-        data["categories"] = self.apkCategories
-        data["size"] = self.apkSize
-        data["numberOfFiles"] = self.numberOfFiles
-        data["time"] = t2
-        data["earmo"] = self.earmoResult
-        data["kadabra"] = self.kadabraResult
-        data["lint"] = self.lintResult
-        data["adoctor"] = self.aDoctorResult
-        data["paprika"] = self.paprikaResult
-        data["relda2"] = self.relda2Result
-        data["activities"], data["permissions"], data["services"], data["providers"] = self.activities, self.permissions, self.services, self.providers
-        stats.addData(data)
-
     def getStatus(self):
         return self.status
