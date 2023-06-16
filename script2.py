@@ -20,7 +20,10 @@ def addCategory(dict, category):
 def getData(appName):
     response = requests.get(f"https://f-droid.org/api/v1/packages/{appName}")
     responseJson = response.json()
-    versionCode = responseJson["suggestedVersionCode"]
+    versionCode = responseJson.get("suggestedVersionCode")
+
+    if versionCode == None:
+        return False
 
     try:
         urllib.request.urlretrieve(f"https://f-droid.org/repo/{appName}_{versionCode}.apk", f"testApks/{appName}.apk")
