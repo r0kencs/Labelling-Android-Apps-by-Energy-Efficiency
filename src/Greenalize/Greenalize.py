@@ -131,7 +131,7 @@ class Greenalize():
 
         if self.downloaded:
             print(f"Deleting Apk...")
-            os.remove(f"testApks/{appName}.apk")
+            os.remove(f"testApks/{fdroidPackageName}.apk")
 
         self.status = True
 
