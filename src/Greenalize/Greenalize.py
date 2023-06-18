@@ -59,14 +59,16 @@ class Greenalize():
         print("Downloading App...")
         response = requests.get(f"https://f-droid.org/api/v1/packages/{fdroidName}")
         responseJson = response.json()
-        versionCode = responseJson.get("suggestedVersionCode")
+        #versionCode = responseJson.get("suggestedVersionCode")
+        versionCode = responseJson.get("packages")[0].get("versionCode")
 
         if versionCode == None:
             return False
 
         try:
-            urllib.request.urlretrieve(f"https://f-droid.org/repo/{appName}_{versionCode}.apk", f"testApks/{appName}.apk")
-        except:
+            urllib.request.urlretrieve(f"https://f-droid.org/repo/{fdroidName}_{versionCode}.apk", f"testApks/{fdroidName}.apk")
+        except Exception as e:
+            print(e)
             return False
 
         return True
