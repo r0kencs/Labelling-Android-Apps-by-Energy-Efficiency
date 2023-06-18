@@ -140,11 +140,4 @@ for i, app in enumerate(apps):
     print(f"Category: {category}\tStart Time: {currentTime}")
     print(f"[{i+1} of {size}]")
 
-    print(f"Downloading Apk...")
-    if not getData(appName):
-        continue
-
-    result = subprocess.run(["cmd", "/c", "python", "main.py", f"testApks/{appName}.apk", "-c", f"{category}"])
-
-    print(f"Deleting Apk...")
-    os.remove(f"testApks/{appName}.apk")
+    result = subprocess.run(["cmd", "/c", "python", "main.py", f"testApks/{appName}.apk", "-c", f"{category}", "-fdroid", f"{appName}"])

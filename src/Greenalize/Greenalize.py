@@ -5,6 +5,8 @@ import shutil
 import polars as pl
 import numpy as np
 from enum import Enum
+import requests
+import urllib.request
 
 from threading import Thread
 from datetime import datetime
@@ -49,10 +51,25 @@ class Greenalize():
         self.apkPath = self.greenalizeParser.getApkPath()
         self.apkName = self.greenalizeParser.getApkName()
         self.apkCategories = self.greenalizeParser.getApkCategories()
-        self.apkSize = round(os.path.getsize(self.apkPath) / 1024**2, 2)
 
         self.index = -1
         self.loaded = False
+
+    def download(self, fdroidName):
+        print("Downloading App...")
+        response = requests.get(f"https://f-droid.org/api/v1/packages/{fdroidName}")
+        responseJson = response.json()
+        versionCode = responseJson.get("suggestedVersionCode")
+
+        if versionCode == None:
+            return False
+
+        try:
+            urllib.request.urlretrieve(f"https://f-droid.org/repo/{appName}_{versionCode}.apk", f"testApks/{appName}.apk")
+        except:
+            return False
+
+        return True
 
     def run(self):
 
@@ -60,6 +77,7 @@ class Greenalize():
 
         self.loadResultsDict()
         self.loaded = self.load()
+        self.downloaded = False
 
         if self.greenalizeParser.getForceExecution():
             stage = GreenalizeStage.FORCE
@@ -68,8 +86,19 @@ class Greenalize():
         else:
             stage = GreenalizeStage.NORMAL
 
+        fdroidPackageName = self.greenalizeParser.getFdroidPackageName()
+
         match stage:
             case GreenalizeStage.NORMAL:
+                if fdroidPackageName != None:
+                    if not self.download(fdroidPackageName):
+                        print("Couldn't download app from FDroid! Aborting!")
+                        self.status = True
+                        return
+                    self.downloaded = True
+
+                self.apkSize = round(os.path.getsize(self.apkPath) / 1024**2, 2)
+
                 self.analyze()
                 self.computeClassifications()
                 self.computeLabel()
@@ -81,6 +110,15 @@ class Greenalize():
                 self.save()
 
             case GreenalizeStage.FORCE:
+                if fdroidPackageName != None:
+                    if not self.download(fdroidPackageName):
+                        print("Couldn't download app from FDroid! Aborting!")
+                        self.status = True
+                        return
+                    self.downloaded = True
+
+                self.apkSize = round(os.path.getsize(self.apkPath) / 1024**2, 2)
+
                 self.analyze()
                 self.computeClassifications()
                 self.computeLabel()
@@ -88,6 +126,10 @@ class Greenalize():
 
             case _:
                 print("Stage _!")
+
+        if self.downloaded:
+            print(f"Deleting Apk...")
+            os.remove(f"testApks/{appName}.apk")
 
         self.status = True
 
@@ -99,6 +141,7 @@ class Greenalize():
         self.numberOfFiles = data.get("files")
         self.sizeOfFiles = data.get("filesSize")
         self.time = data.get("time")
+        self.apkSize = data.get("size")
 
         self.permissions = data.get("Permissions")
         self.activities = data.get("Activities")

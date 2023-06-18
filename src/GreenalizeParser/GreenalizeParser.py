@@ -10,11 +10,12 @@ class GreenalizeParser():
         parser.add_argument("-force", "-f", dest="forceExecution", help="force new execution", action="store_true")
         parser.add_argument("-update", "-u", dest="updateExecution", help="update previous result with new", action="store_true")
         parser.add_argument("-fixCategories", "-fc", dest="fixCategories", help="if there are previous results, only update categories", action="store_true")
+        parser.add_argument("-fdroid", dest="fdroidPackageName", help="Package Name of a FDroid App", default=None)
         self.parser = parser
 
         args = parser.parse_args()
 
-        if not os.path.exists(args.path):
+        if not os.path.exists(args.path) and args.fdroidPackageName == None:
             self.parsingError("Apk path does not exist!")
 
         analyzersNames = ["Earmo", "Kadabra", "AndroidManifestAnalyzer", "Lint", "ADoctor", "Paprika", "Relda2"]
@@ -29,6 +30,7 @@ class GreenalizeParser():
         self.forceExecution = args.forceExecution
         self.updateExecution = args.updateExecution
         self.fixCategories = args.fixCategories
+        self.fdroidPackageName = args.fdroidPackageName
 
     def parsingError(self, message):
         print(f"GreenalizeParser Error: {message}\n")
@@ -55,3 +57,6 @@ class GreenalizeParser():
 
     def getFixCategories(self):
         return self.fixCategories
+
+    def getFdroidPackageName(self):
+        return self.fdroidPackageName
