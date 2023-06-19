@@ -57,9 +57,14 @@ for item in data:
                 "LintClassification": [lintClassification],
                 "ADoctorClassification": [aDoctorClassification],
                 "PaprikaClassification": [paprikaClassification],
-                "Relda2Classification": [relda2Classification]
+                "Relda2Classification": [relda2Classification],
+
+                "Label": [item.get("Label")]
             }
         )
+
+        if item.get("Label") == None:
+            continue
 
         if len(df) == 0:
             df = dfAux
