@@ -1,13 +1,15 @@
 import json
 
 f = open("results.json", "r")
-data = json.load(f)
+results = json.load(f)
 f.close()
 
-
-for idx, item in enumerate(data):
-    data[idx]["name"] = item["name"].rsplit("_", 1)[0]
-
-f = open("results.json", "w")
-f.write(json.dumps(data))
+f = open("blacklist.json", "r")
+blacklist = json.load(f)
 f.close()
+
+for item in results:
+    for b in blacklist:
+        if item.get("name") == b.get("name"):
+            print(b.get("name"))
+            break

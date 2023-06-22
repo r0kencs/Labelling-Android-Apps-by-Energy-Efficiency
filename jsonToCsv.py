@@ -59,6 +59,7 @@ for item in data:
                 "PaprikaClassification": [paprikaClassification],
                 "Relda2Classification": [relda2Classification],
 
+                "FinalClassification": [item.get("FinalClassification")],
                 "Label": [item.get("Label")]
             }
         )

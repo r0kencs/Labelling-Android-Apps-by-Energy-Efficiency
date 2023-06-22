@@ -1,6 +1,5 @@
 import json
 
-"""
 f = open("results.json", "r")
 results = json.load(f)
 f.close()

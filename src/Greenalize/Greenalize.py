@@ -103,11 +103,13 @@ class Greenalize():
 
                 self.analyze()
                 self.computeClassifications()
+                self.computeFinalClassification()
                 self.computeLabel()
                 self.save()
 
             case GreenalizeStage.FIX_CATEGORIES:
                 self.computeClassifications()
+                self.computeFinalClassification()
                 self.computeLabel()
                 self.save()
 
@@ -123,6 +125,7 @@ class Greenalize():
 
                 self.analyze()
                 self.computeClassifications()
+                self.computeFinalClassification()
                 self.computeLabel()
                 self.save()
 
@@ -132,6 +135,9 @@ class Greenalize():
         if self.downloaded:
             print(f"Deleting Apk...")
             os.remove(f"testApks/{fdroidPackageName}.apk")
+
+        print(f"Classification: {self.finalClassification}")
+        print(f"Label: {self.label}")
 
         self.status = True
 
@@ -165,6 +171,7 @@ class Greenalize():
         self.relda2Time = data.get("Relda2Time")
 
         self.classifications = data.get("Classifications")
+        self.finalClassification = data.get("FinalClassification")
         self.label = data.get("Label")
 
         s = set(data["categories"])
@@ -225,6 +232,7 @@ class Greenalize():
             "Relda2": self.relda2Result,
             "Relda2Time": self.relda2Time,
             "Classifications": self.classifications,
+            "FinalClassification": self.finalClassification,
             "Label": self.label
         }
 
@@ -281,6 +289,17 @@ class Greenalize():
             classifications.append(categoryClassifications)
 
         self.classifications = classifications
+
+    def computeFinalClassification(self):
+        classificationsSum = 0
+        categorySum = 0
+        for categoryClassifications in self.classifications:
+            categorySum = categorySum + 1
+            classificationsSum = classificationsSum + categoryClassifications["EarmoClassification"] + categoryClassifications["KadabraClassification"] + categoryClassifications["LintClassification"] + categoryClassifications["ADoctorClassification"] + categoryClassifications["PaprikaClassification"] + categoryClassifications["Relda2Classification"]
+
+        finalClassification = round(classificationsSum / (categorySum * 6), 2)
+
+        self.finalClassification = finalClassification
 
     def computeLabel(self):
         f = open(f"thresholds/labels.json")
