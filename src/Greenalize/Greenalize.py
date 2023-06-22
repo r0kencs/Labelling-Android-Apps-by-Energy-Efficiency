@@ -73,6 +73,20 @@ class Greenalize():
 
         return True
 
+    def downloadAptoide(self, aptoideName):
+        print("Downloading App...")
+        response = requests.get(f"http://ws75.aptoide.com/api/7/apps/search/query={aptoideName}/limit=1")
+        responseJson = response.json()
+        responsePath = responseJson.get("datalist").get("list")[0].get("file").get("path")
+
+        try:
+            urllib.request.urlretrieve(f"{responsePath}", f"testApks/{aptoideName}.apk")
+        except Exception as e:
+            print(e)
+            return False
+
+        return True
+
     def run(self):
 
         self.createFolder()
@@ -89,11 +103,18 @@ class Greenalize():
             stage = GreenalizeStage.NORMAL
 
         fdroidPackageName = self.greenalizeParser.getFdroidPackageName()
+        aptoidePackageName = self.greenalizeParser.getAptoidPackageName()
 
         match stage:
             case GreenalizeStage.NORMAL:
                 if fdroidPackageName != None:
                     if not self.download(fdroidPackageName):
+                        print("Couldn't download app from FDroid! Aborting!")
+                        self.status = True
+                        return
+                    self.downloaded = True
+                elif aptoidePackageName != None:
+                    if not self.downloadAptoide(aptoidePackageName):
                         print("Couldn't download app from FDroid! Aborting!")
                         self.status = True
                         return
@@ -179,7 +200,7 @@ class Greenalize():
         self.apkCategories = data["categories"] + temp
 
     def loadResultsDict(self):
-        allResults = open("results.json", "r")
+        allResults = open("results2.json", "r")
         self.resultsDict = json.load(allResults)
         allResults.close()
 
@@ -245,7 +266,7 @@ class Greenalize():
         else:
             self.resultsDict.append(appData)
 
-        allResults = open("results.json", "w")
+        allResults = open("results2.json", "w")
         allResults.write(json.dumps(self.resultsDict))
         allResults.close()
 
