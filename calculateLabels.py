@@ -22,6 +22,7 @@ def computeClassifications(item):
     for category in item.get("categories"):
         earmoClassification = computeClassificationsAux(category, "Earmo", item.get("Earmo"))
         kadabraClassification = computeClassificationsAux(category, "Kadabra", item.get("Kadabra"))
+        permissionsClassification = computeClassificationsAux(category, "Permissions", item.get("Permissions"))
         lintClassification = computeClassificationsAux(category, "Lint", item.get("Lint"))
         aDoctorClassification = computeClassificationsAux(category, "ADoctor", item.get("ADoctor"))
         paprikaClassification = computeClassificationsAux(category, "Paprika", item.get("Paprika"))
@@ -31,6 +32,7 @@ def computeClassifications(item):
             "Category": category,
             "EarmoClassification": earmoClassification,
             "KadabraClassification": kadabraClassification,
+            "PermissionsClassification": permissionsClassification,
             "LintClassification": lintClassification,
             "ADoctorClassification": aDoctorClassification,
             "PaprikaClassification": paprikaClassification,
@@ -46,14 +48,14 @@ def computeFinalClassification(item):
     categorySum = 0
     for categoryClassifications in item.get("Classifications"):
         categorySum = categorySum + 1
-        classificationsSum = classificationsSum + categoryClassifications["EarmoClassification"] + categoryClassifications["KadabraClassification"] + categoryClassifications["LintClassification"] + categoryClassifications["ADoctorClassification"] + categoryClassifications["PaprikaClassification"] + categoryClassifications["Relda2Classification"]
+        classificationsSum = classificationsSum + categoryClassifications["EarmoClassification"] + categoryClassifications["KadabraClassification"] + categoryClassifications["PermissionsClassification"] + categoryClassifications["LintClassification"] + categoryClassifications["ADoctorClassification"] + categoryClassifications["PaprikaClassification"] + categoryClassifications["Relda2Classification"]
 
-    finalClassification = round(classificationsSum / (categorySum * 6), 2)
+    finalClassification = round(classificationsSum / (categorySum * 7), 2)
 
     return finalClassification
 
 def computeLabel(item):
-    f = open(f"thresholds/labels.json")
+    f = open(f"thresholds2/labels.json")
     data = json.load(f)
     f.close()
     thresholds = data["thresholds"]

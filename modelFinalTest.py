@@ -27,3 +27,8 @@ print(thresholds)
 labels = [computeLabel(value, thresholds) for value in values]
 for n in range(7):
     print(f"{n+1}: {labels.count(n+1)}")
+
+f = open(f"thresholds2/labels.json", "w")
+data = {"thresholds": thresholds}
+f.write(json.dumps(data))
+f.close()
