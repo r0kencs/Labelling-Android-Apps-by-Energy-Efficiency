@@ -54,15 +54,22 @@ def computeFinalClassification(item):
 
     return finalClassification
 
+def decideLabel(value, thresholds):
+    for i, threshold in enumerate(thresholds):
+        if value <= threshold:
+            return i+1
+
+    return 1
+
 def computeLabel(item):
     f = open(f"thresholds2/labels.json")
     data = json.load(f)
     f.close()
     thresholds = data["thresholds"]
 
-    classification = decideClassification(item.get("FinalClassification"), thresholds)
+    classification = decideLabel(item.get("FinalClassification"), thresholds)
 
-    labels = {1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F", 7: "G" }
+    labels = {7: "A", 6: "B", 5: "C", 4: "D", 3: "E", 2: "F", 1: "G" }
 
     return labels.get(classification)
 
