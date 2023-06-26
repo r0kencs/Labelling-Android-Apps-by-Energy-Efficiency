@@ -38,7 +38,7 @@ def defineThresholds(bins):
 
 def modelTool(categoryDf, categoryName, tool):
 
-    print(f"---------------- {tool} ----------------")
+    #print(f"---------------- {tool} ----------------")
 
     values = np.array(categoryDf[tool].to_list())
     sizeOfCode = np.array(categoryDf["Activities"].to_list())
@@ -55,23 +55,23 @@ def modelTool(categoryDf, categoryName, tool):
     bins = np.bincount(sortedValues, weights=v)
 
     thresholds = makeThresholds(values)
-    print(thresholds)
+    #print(thresholds)
     classifications = [computeLabel(value, thresholds) for value in values]
-    for n in range(5):
-        print(f"{n+1}: {classifications.count(n+1)}")
+    #for n in range(5):
+        #print(f"{n+1}: {classifications.count(n+1)}")
 
+    """
     thresholds = defineThresholds(bins)
     print(thresholds)
     classifications = [computeLabel(value, thresholds) for value in values]
     for n in range(5):
         print(f"{n+1}: {classifications.count(n+1)}")
-
     """
+
     f = open(f"thresholds2/{categoryName}_{tool}.json", "w")
     data = {"thresholds": thresholds}
     f.write(json.dumps(data))
     f.close()
-    """
 
 for categoryDf in categoryDfs:
     categoryName = pl.first(categoryDf["Category"])
@@ -79,8 +79,8 @@ for categoryDf in categoryDfs:
 
     modelTool(categoryDf, categoryName, "Earmo")
     modelTool(categoryDf, categoryName, "Kadabra")
+    modelTool(categoryDf, categoryName, "Permissions")
     modelTool(categoryDf, categoryName, "Lint")
     modelTool(categoryDf, categoryName, "ADoctor")
     modelTool(categoryDf, categoryName, "Paprika")
     modelTool(categoryDf, categoryName, "Relda2")
-    break
