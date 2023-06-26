@@ -14,6 +14,7 @@ for item in data:
                 if classification["Category"] == category:
                     earmoClassification = classification["EarmoClassification"]
                     kadabraClassification = classification["KadabraClassification"]
+                    permissionsClassification = classification["PermissionsClassification"]
                     lintClassification = classification["LintClassification"]
                     aDoctorClassification = classification["ADoctorClassification"]
                     paprikaClassification = classification["PaprikaClassification"]
@@ -54,6 +55,7 @@ for item in data:
 
                 "EarmoClassification": [earmoClassification],
                 "KadabraClassification": [kadabraClassification],
+                "PermissionsClassification": [permissionsClassification],
                 "LintClassification": [lintClassification],
                 "ADoctorClassification": [aDoctorClassification],
                 "PaprikaClassification": [paprikaClassification],
