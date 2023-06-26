@@ -200,7 +200,7 @@ class Greenalize():
         self.apkCategories = data["categories"] + temp
 
     def loadResultsDict(self):
-        allResults = open("results2.json", "r")
+        allResults = open("results.json", "r")
         self.resultsDict = json.load(allResults)
         allResults.close()
 
@@ -266,19 +266,19 @@ class Greenalize():
         else:
             self.resultsDict.append(appData)
 
-        allResults = open("results2.json", "w")
+        allResults = open("results.json", "w")
         allResults.write(json.dumps(self.resultsDict))
         allResults.close()
 
     def decideClassification(self, value, thresholds):
         for i, threshold in enumerate(thresholds):
             if value <= threshold:
-                return len(thresholds)-i
+                return len(thresholds)-i+1
 
         return 1
 
     def computeClassificationsAux(self, category, tool, result):
-        f = open(f"thresholds/{category}_{tool}.json")
+        f = open(f"thresholds2/{category}_{tool}.json")
         data = json.load(f)
         f.close()
         thresholds = data["thresholds"]
